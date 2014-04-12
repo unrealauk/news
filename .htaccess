@@ -1,0 +1,9 @@
+directoryIndex index.php
+RewriteEngine On
+Options +FollowSymLinks
+RewriteBase /news
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/index.php
+RewriteCond %{REQUEST_URI} (/|\.php|\.html|\.htm|\.feed|\.pdf|\.raw|/[^.]*)$  [NC]
+RewriteRule ^/?(.*)/(.*)$ index.php?action=$1&id=$2
