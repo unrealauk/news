@@ -31,6 +31,9 @@ function route($action) {
     case 'pages':
       main();
       break;
+    case 'profileview':
+      profileview();
+      break;
     default:
       $err .= 'Page not found';
       break;
@@ -189,9 +192,12 @@ function info() {
       }
       $sql .= " lastname=:lastname, name=:name, surname=:surname, rules=:rules, avatar=:avatar WHERE login=:login";
       $STH = $DBH->prepare($sql);
-
-      if ($_POST['password'] !== '') {$STH->bindParam(':password', $password);}
-      if ($_POST['email'] !== '') {  $STH->bindParam(':email', $_POST['email']);}
+      if ($_POST['password'] !== '') {
+        $STH->bindParam(':password', $password);
+      }
+      if ($_POST['email'] !== '') {
+        $STH->bindParam(':email', $_POST['email']);
+      }
       $STH->bindParam(':lastname', $lastname);
       $STH->bindParam(':name', $name);
       $STH->bindParam(':surname', $surname);
@@ -212,7 +218,6 @@ function info() {
   $row = $STH->fetch();
   $html_main_content .= '<form method="post" enctype="multipart/form-data">
 <table>
-<tr><td></td><td></td></tr>
 <tr><td><b>Avatar</b></td><td><img src="/news/images/';
   if ($row['avatar'] == '') {
     $html_main_content .= 'noimage.jpeg';
@@ -221,7 +226,7 @@ function info() {
     $html_main_content .= $row['avatar'];
   }
 
-  $html_main_content .= '"width="150px" height="150"></td></tr>
+  $html_main_content .= '"width="150px" height="150px"></td></tr>
   <tr><td><b>Email</b></td><td><input type=text name="email" value=""></td></tr>
  <tr><td><b>Surname</b></td><td><input type=text name="surname" value="' . $row['surname'] . '"></td></tr>
 <tr><td><b>Name</b></td><td><input type=text name="name" value="' . $row['name'] . '"></td></tr>
@@ -505,7 +510,7 @@ function login() {
   if (isset($_SESSION['login'])) {
     $html_login_form .= 'You enter as <b>' . $_SESSION['login'] . '</b><br>
    <a href="/news/logout/">Logout</a><br>
-   <a href="/news/info/">Your information</a><br>
+   <a href="/news/profileview/">Your Profile</a><br>
    <a href="/news/add/">Add news</a>';
   }
   else {
@@ -534,4 +539,32 @@ function trimming_line($string, $length = 150) {
     return mb_substr($str, 0, $pos - 1) . ' ... ';
   }
   return $string;
+}
+
+function profileview() {
+  global $html_main_content, $DBH;
+  $STH = $DBH->prepare("SELECT * FROM user WHERE login=:login");
+  $data = array('login' => $_SESSION['login']);
+  $STH->execute($data);
+  $STH->setFetchMode(PDO::FETCH_ASSOC);
+  $row = $STH->fetch();
+  $html_main_content .= '<table>
+<tr><td><b>Avatar</b></td><td><img src="/news/images/';
+  if ($row['avatar'] == '') {
+    $html_main_content .= 'noimage.jpeg';
+  }
+  else {
+    $html_main_content .= $row['avatar'];
+  }
+
+  $html_main_content .= '"width="150px" height="150px"></td></tr>
+<tr><td><b>Email</b></td><td>' . $row['email'] . '</td></tr>
+<tr><td><b>Login</b></td><td>' . $row['login'] . '</td></tr>
+<tr><td><b>Surname</b></td><td>' . $row['surname'] . '</td></tr>
+<tr><td><b>Name</b></td><td>' . $row['name'] . '</td></tr>
+<tr><td><b>Lastname</b></td><td>' . $row['lastname'] . '</td></tr>
+<tr><td><b>Rules</b></td><td>' . $row['rules'] . '</td></tr>
+</table>';
+  $html_main_content .= '<a href = "/news/info/" > Edit information </a ><br > ';
+
 }
