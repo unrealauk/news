@@ -1,5 +1,5 @@
 <?php
-
+//My change from home
 // Redirect Pages and run function
 function route($action) {
   global $err;
