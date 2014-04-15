@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa181a78-126a-4005-ac20-34b149e3f0ee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/function.php" afterPath="$PROJECT_DIR$/inc/function.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="news.iws" />
@@ -50,33 +49,33 @@
       <file leaf-file-name="function.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inc/function.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="21" selection-start="27" selection-end="27" vertical-scroll-proportion="0.024128687" vertical-offset="0" max-vertical-offset="10350">
+            <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.021003501" vertical-offset="0" max-vertical-offset="10350">
               <folding>
-                <marker date="1397403713154" expanded="true" signature="811:829" placeholder="SELECT * fro..news..." />
-                <marker date="1397403713154" expanded="true" signature="1736:1781" placeholder="SELECT * fro..news..." />
-                <marker date="1397403713154" expanded="true" signature="3608:3645" placeholder="SELECT * FRO..user..." />
-                <marker date="1397403713154" expanded="true" signature="6787:6824" placeholder="SELECT * FRO..user..." />
-                <marker date="1397403713154" expanded="true" signature="7038:7100" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="7046:7100" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="8404:8490" placeholder="INSERT INTO ..." />
-                <marker date="1397403713154" expanded="true" signature="8737:8768" placeholder="SELECT * FRO..news..." />
-                <marker date="1397403713154" expanded="true" signature="9243:9305" placeholder="SELECT * FRO..comments..." />
-                <marker date="1397403713154" expanded="true" signature="10072:10308" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="10622:10752" placeholder="INSERT INTO ..." />
-                <marker date="1397403713154" expanded="true" signature="11173:11380" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="11498:11529" placeholder="SELECT * FRO..news..." />
-                <marker date="1397403713154" expanded="true" signature="11732:11761" placeholder="Delete FROM ..." />
-                <marker date="1397403713154" expanded="true" signature="11818:11856" placeholder="Delete FROM ..." />
-                <marker date="1397403713154" expanded="true" signature="12202:12267" placeholder="UPDATE news ..." />
-                <marker date="1397403713154" expanded="true" signature="12535:12567" placeholder="SELECT * FRO..news..." />
-                <marker date="1397403713154" expanded="true" signature="13317:13371" placeholder="SELECT * FRO..user..." />
-                <marker date="1397403713154" expanded="true" signature="15600:15766" placeholder="INSERT INTO ..." />
-                <marker date="1397403713154" expanded="true" signature="16324:17047" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="16331:17040" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="17309:17378" placeholder="SELECT * FRO..user..." />
-                <marker date="1397403713154" expanded="true" signature="18183:18367" placeholder="..." />
-                <marker date="1397403713154" expanded="true" signature="19022:19059" placeholder="SELECT * FRO..user..." />
-                <marker date="1397403713154" expanded="true" signature="19230:19284" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="790:808" placeholder="SELECT * fro..news..." />
+                <marker date="1397309763174" expanded="true" signature="1715:1760" placeholder="SELECT * fro..news..." />
+                <marker date="1397309763174" expanded="true" signature="3587:3624" placeholder="SELECT * FRO..user..." />
+                <marker date="1397309763174" expanded="true" signature="6766:6803" placeholder="SELECT * FRO..user..." />
+                <marker date="1397309763174" expanded="true" signature="7017:7079" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="7025:7079" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="8383:8469" placeholder="INSERT INTO ..." />
+                <marker date="1397309763174" expanded="true" signature="8716:8747" placeholder="SELECT * FRO..news..." />
+                <marker date="1397309763174" expanded="true" signature="9222:9284" placeholder="SELECT * FRO..comments..." />
+                <marker date="1397309763174" expanded="true" signature="10051:10287" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="10601:10731" placeholder="INSERT INTO ..." />
+                <marker date="1397309763174" expanded="true" signature="11152:11359" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="11477:11508" placeholder="SELECT * FRO..news..." />
+                <marker date="1397309763174" expanded="true" signature="11711:11740" placeholder="Delete FROM ..." />
+                <marker date="1397309763174" expanded="true" signature="11797:11835" placeholder="Delete FROM ..." />
+                <marker date="1397309763174" expanded="true" signature="12181:12246" placeholder="UPDATE news ..." />
+                <marker date="1397309763174" expanded="true" signature="12514:12546" placeholder="SELECT * FRO..news..." />
+                <marker date="1397309763174" expanded="true" signature="13296:13350" placeholder="SELECT * FRO..user..." />
+                <marker date="1397309763174" expanded="true" signature="15579:15745" placeholder="INSERT INTO ..." />
+                <marker date="1397309763174" expanded="true" signature="16303:17026" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="16310:17019" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="17288:17357" placeholder="SELECT * FRO..user..." />
+                <marker date="1397309763174" expanded="true" signature="18162:18346" placeholder="..." />
+                <marker date="1397309763174" expanded="true" signature="19001:19038" placeholder="SELECT * FRO..user..." />
+                <marker date="1397309763174" expanded="true" signature="19209:19263" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -155,8 +154,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="64" />
     <option name="y" value="-4" />
-    <option name="width" value="1537" />
-    <option name="height" value="905" />
+    <option name="width" value="1217" />
+    <option name="height" value="1029" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -278,22 +277,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Problems" />
-        <subPane subId="Tests" />
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="news">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -327,6 +310,22 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="news">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
       </pane>
     </panes>
   </component>
@@ -369,17 +368,16 @@
     </key>
   </component>
   <component name="RunManager" selected="PHP Web Application.Localhost">
-    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner />
+    <configuration default="true" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request">
       <method />
     </configuration>
     <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
       <method />
     </configuration>
-    <configuration default="true" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request">
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -388,10 +386,11 @@
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
-    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
-      <option name="VM_PARAMETERS" value="" />
-      <option name="USER_CFG_CLASS" />
-      <option name="CONTEXT_PROVIDER" />
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
     <configuration default="false" name="Localhost" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="FIREFOX" server_name="localhost" start_url="/news/">
@@ -437,7 +436,11 @@
       <created>1397309890911</created>
       <updated>1397309890911</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Make Profile users">
+      <created>1397310001864</created>
+      <updated>1397310001864</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -461,49 +464,49 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-4" width="1537" height="905" extended-state="6" />
-    <editor active="true" />
+    <frame x="64" y="-4" width="1217" height="1029" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14156379" sideWeight="0.49946064" order="0" side_tool="false" content_ui="combo" x="87" y="71" width="174" height="927" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24938272" sideWeight="0.49946064" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14136808" sideWeight="0.49946064" order="0" side_tool="false" content_ui="combo" x="87" y="71" width="174" height="927" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39805827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14156379" sideWeight="0.50053936" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24938272" sideWeight="0.49946064" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39805827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14156379" sideWeight="0.50053936" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39805827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14156379" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="87" y="71" width="174" height="927" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14156379" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="87" y="71" width="174" height="927" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39805827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -821,33 +824,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/function.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="21" selection-start="27" selection-end="27" vertical-scroll-proportion="0.024128687" vertical-offset="0" max-vertical-offset="10350">
+        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.021003501" vertical-offset="0" max-vertical-offset="10350">
           <folding>
-            <marker date="1397403713154" expanded="true" signature="811:829" placeholder="SELECT * fro..news..." />
-            <marker date="1397403713154" expanded="true" signature="1736:1781" placeholder="SELECT * fro..news..." />
-            <marker date="1397403713154" expanded="true" signature="3608:3645" placeholder="SELECT * FRO..user..." />
-            <marker date="1397403713154" expanded="true" signature="6787:6824" placeholder="SELECT * FRO..user..." />
-            <marker date="1397403713154" expanded="true" signature="7038:7100" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="7046:7100" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="8404:8490" placeholder="INSERT INTO ..." />
-            <marker date="1397403713154" expanded="true" signature="8737:8768" placeholder="SELECT * FRO..news..." />
-            <marker date="1397403713154" expanded="true" signature="9243:9305" placeholder="SELECT * FRO..comments..." />
-            <marker date="1397403713154" expanded="true" signature="10072:10308" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="10622:10752" placeholder="INSERT INTO ..." />
-            <marker date="1397403713154" expanded="true" signature="11173:11380" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="11498:11529" placeholder="SELECT * FRO..news..." />
-            <marker date="1397403713154" expanded="true" signature="11732:11761" placeholder="Delete FROM ..." />
-            <marker date="1397403713154" expanded="true" signature="11818:11856" placeholder="Delete FROM ..." />
-            <marker date="1397403713154" expanded="true" signature="12202:12267" placeholder="UPDATE news ..." />
-            <marker date="1397403713154" expanded="true" signature="12535:12567" placeholder="SELECT * FRO..news..." />
-            <marker date="1397403713154" expanded="true" signature="13317:13371" placeholder="SELECT * FRO..user..." />
-            <marker date="1397403713154" expanded="true" signature="15600:15766" placeholder="INSERT INTO ..." />
-            <marker date="1397403713154" expanded="true" signature="16324:17047" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="16331:17040" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="17309:17378" placeholder="SELECT * FRO..user..." />
-            <marker date="1397403713154" expanded="true" signature="18183:18367" placeholder="..." />
-            <marker date="1397403713154" expanded="true" signature="19022:19059" placeholder="SELECT * FRO..user..." />
-            <marker date="1397403713154" expanded="true" signature="19230:19284" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="790:808" placeholder="SELECT * fro..news..." />
+            <marker date="1397309763174" expanded="true" signature="1715:1760" placeholder="SELECT * fro..news..." />
+            <marker date="1397309763174" expanded="true" signature="3587:3624" placeholder="SELECT * FRO..user..." />
+            <marker date="1397309763174" expanded="true" signature="6766:6803" placeholder="SELECT * FRO..user..." />
+            <marker date="1397309763174" expanded="true" signature="7017:7079" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="7025:7079" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="8383:8469" placeholder="INSERT INTO ..." />
+            <marker date="1397309763174" expanded="true" signature="8716:8747" placeholder="SELECT * FRO..news..." />
+            <marker date="1397309763174" expanded="true" signature="9222:9284" placeholder="SELECT * FRO..comments..." />
+            <marker date="1397309763174" expanded="true" signature="10051:10287" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="10601:10731" placeholder="INSERT INTO ..." />
+            <marker date="1397309763174" expanded="true" signature="11152:11359" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="11477:11508" placeholder="SELECT * FRO..news..." />
+            <marker date="1397309763174" expanded="true" signature="11711:11740" placeholder="Delete FROM ..." />
+            <marker date="1397309763174" expanded="true" signature="11797:11835" placeholder="Delete FROM ..." />
+            <marker date="1397309763174" expanded="true" signature="12181:12246" placeholder="UPDATE news ..." />
+            <marker date="1397309763174" expanded="true" signature="12514:12546" placeholder="SELECT * FRO..news..." />
+            <marker date="1397309763174" expanded="true" signature="13296:13350" placeholder="SELECT * FRO..user..." />
+            <marker date="1397309763174" expanded="true" signature="15579:15745" placeholder="INSERT INTO ..." />
+            <marker date="1397309763174" expanded="true" signature="16303:17026" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="16310:17019" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="17288:17357" placeholder="SELECT * FRO..user..." />
+            <marker date="1397309763174" expanded="true" signature="18162:18346" placeholder="..." />
+            <marker date="1397309763174" expanded="true" signature="19001:19038" placeholder="SELECT * FRO..user..." />
+            <marker date="1397309763174" expanded="true" signature="19209:19263" placeholder="..." />
           </folding>
         </state>
       </provider>
