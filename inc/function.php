@@ -57,6 +57,9 @@ function route($action) {
     case 'mode_god_delete':
       mode_god_delete();
       break;
+    case 'mode_god_edit':
+      mode_god_edit();
+      break;
     default:
       $err .= 'Page not found';
       break;
@@ -567,9 +570,57 @@ function mode_god() {
 }
 
 function mode_god_edit() {
+  global $html_main_content, $DBH;
   if ($_SESSION['rules'] == 'admin') {
-
-
+    $STH = $DBH->prepare("Select * FROM user WHERE login=:login");
+    $data = array('login' => $_GET['id']);
+    $STH->execute($data);
+    $row = $STH->fetch(PDO::FETCH_ASSOC);
+    $html_main_content .= '<form method="post" enctype="multipart/form-data">
+<table><tr><td><b>Avatar</b></td><td>
+<img src="/news/images/';
+    if ($row['avatar'] == '') {
+      $html_main_content .= 'noimage.jpeg';
+    }
+    else {
+      $html_main_content .= $row['avatar'];
+    }
+    $html_main_content .= '"width="150px" height="150px"></td></tr>
+<tr><td><b>Login</b></td><td><input type="text" name="login" value="' . $row['login'] . '"></td></tr>
+<tr><td><b>Email</b></td><td><input type=text name="email" value="' . $row['email'] . '"></td></tr>
+<tr><td><b>Surname</b></td><td><input type=text name="surname" value="' . $row['surname'] . '"></td></tr>
+<tr><td><b>Name</b></td><td><input type=text name="name" value="' . $row['name'] . '"></td></tr>
+<tr><td><b>Lastname</b></td><td><input type=text name="lastname"value="' . $row['lastname'] . '"></td></tr>
+<tr><td><b>Date reg</b></td><td><input type=text name="lastname"value="' . $row['date_reg'] . '"></td></tr>
+<tr><td><b>Last login</b></td><td><input type=text name="lastname"value="' . $row['date_login'] . '"></td></tr>
+<tr><td><b>Rules</b></td><td>
+<select >
+<option ';
+    if ($row['rules'] == 'user') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="user">user</option><option ';
+    if ($row['rules'] == 'editor') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="editor">editor</option><option ';
+    if ($row['rules'] == 'baned') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="baned">baned</option><option ';
+    if ($row['rules'] == 'admin') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="admin">admin</option>';
+    $html_main_content .= '  </select>
+ </td></tr>
+<tr><td><b>Password</b></td><td><input type="Password" name="password"></td></tr>
+<tr><td><b>RetryPassword</b></td><td><input type="Password" name="rpassword"></td></tr>
+<tr><td><b>EditAvatar</b></td><td><input type="file" name="file" size="30" /></td></tr>
+<input type="hidden" name="avatar" value="' . $row['avatar'] . '"></td></tr>
+<tr><td colspan="2"><b><input type="submit" value="ok" name="submit"></td></tr>
+</table>
+</form>';
   }
 }
 

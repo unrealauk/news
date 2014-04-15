@@ -7,12 +7,12 @@ $host = 'localhost';
 $dbname = 'news';
 $user = 'root';
 $pass = 'root';
-$err= '';
+$err = '';
 // Количество новостей на странице
 $on_page = 2;
 $html_login_form = '';
 $html_main_content = '';
-$title ='My site';
+$title = 'My site';
 $er = '';
 try {
   # MySQL через PDO_MYSQL
