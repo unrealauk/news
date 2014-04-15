@@ -54,6 +54,9 @@ function route($action) {
     case 'delete_user':
       delete_user();
       break;
+    case 'mode_god_delete':
+      mode_god_delete();
+      break;
     default:
       $err .= 'Page not found';
       break;
@@ -532,7 +535,7 @@ function delete_user() {
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
     if ($_SESSION['rules'] == 'admin') {
-      $html_main_content .= 'Profile ' . $_GET['id'] . 'will be delete & all comments';
+      $html_main_content .= 'Profile & all comments ' . $_GET['id'] . 'will be delete ';
     }
     else {
       session_unset();
@@ -545,7 +548,7 @@ function delete_user() {
 function mode_god() {
   global $html_main_content, $DBH;
   $STH = $DBH->query("SELECT * FROM user ");
-  $html_main_content .='<table>';
+  $html_main_content .= '<table>';
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
     $html_main_content .= '<tr>
     <td><b>Login:</b></td><td>' . $row['login'] . '</td>
@@ -554,8 +557,31 @@ function mode_god() {
     <td><b>Name:</b></td><td>' . $row['name'] . '</td>
     <td><b>Lastname:</b></td><td>' . $row['lastname'] . '</td>
     <td><b>Rules:</b></td><td>' . $row['rules'] . '</td>
-   <td><img src=/news/images/edit.png><img src=/news/images/delete.gif></td></tr>';
+   <td>
+   <a href="/news/mode_god_edit/' . $row['login'] . '"><img src=/news/images/edit.png></a>
+   <a href="/news/mode_god_delete/' . $row['login'] . '"><img src=/news/images/delete.gif></a>
+   </td></tr>';
   }
-  $html_main_content .='</table>';
+  $html_main_content .= '</table>';
 
+}
+
+function mode_god_edit() {
+  if ($_SESSION['rules'] == 'admin') {
+
+
+  }
+}
+
+function mode_god_delete() {
+  global $html_main_content, $DBH;
+  if ($_SESSION['rules'] == 'admin') {
+    $STH = $DBH->prepare("Delete FROM user WHERE login=:login;
+  Delete FROM comments WHERE author=:login;
+  Delete FROM news WHERE author=:login;");
+    $data = array('login' => $_GET['id']);
+    $STH->execute($data);
+    $html_main_content .= 'Profile & all comments ' . $_GET['id'] . 'will be delete <br>';
+    $html_main_content .= '<a href="/news/mode_god/">Back</a>';
+  }
 }
