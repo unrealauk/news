@@ -49,7 +49,7 @@
       <file leaf-file-name="function.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inc/function.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="560" column="44" selection-start="19509" selection-end="19509" vertical-scroll-proportion="1.1866978" vertical-offset="9063" max-vertical-offset="10350">
+            <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.021003501" vertical-offset="0" max-vertical-offset="10350">
               <folding>
                 <marker date="1397309763174" expanded="true" signature="790:808" placeholder="SELECT * fro..news..." />
                 <marker date="1397309763174" expanded="true" signature="1715:1760" placeholder="SELECT * fro..news..." />
@@ -277,22 +277,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Problems" />
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="news">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Tests" />
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -326,6 +310,22 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="news">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
       </pane>
     </panes>
   </component>
@@ -436,7 +436,11 @@
       <created>1397309890911</created>
       <updated>1397309890911</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Make Profile users">
+      <created>1397310001864</created>
+      <updated>1397310001864</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -820,7 +824,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/function.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="560" column="44" selection-start="19509" selection-end="19509" vertical-scroll-proportion="1.1866978" vertical-offset="9063" max-vertical-offset="10350">
+        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.021003501" vertical-offset="0" max-vertical-offset="10350">
           <folding>
             <marker date="1397309763174" expanded="true" signature="790:808" placeholder="SELECT * fro..news..." />
             <marker date="1397309763174" expanded="true" signature="1715:1760" placeholder="SELECT * fro..news..." />
