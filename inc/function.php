@@ -54,6 +54,12 @@ function route($action) {
     case 'delete_user':
       delete_user();
       break;
+    case 'mode_god_delete':
+      mode_god_delete();
+      break;
+    case 'mode_god_edit':
+      mode_god_edit();
+      break;
     default:
       $err .= 'Page not found';
       break;
@@ -532,7 +538,7 @@ function delete_user() {
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
     if ($_SESSION['rules'] == 'admin') {
-      $html_main_content .= 'Profile ' . $_GET['id'] . 'will be delete & all comments';
+      $html_main_content .= 'Profile & all comments ' . $_GET['id'] . 'will be delete ';
     }
     else {
       session_unset();
@@ -545,7 +551,7 @@ function delete_user() {
 function mode_god() {
   global $html_main_content, $DBH;
   $STH = $DBH->query("SELECT * FROM user ");
-  $html_main_content .='<table>';
+  $html_main_content .= '<table>';
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
     $html_main_content .= '<tr>
     <td><b>Login:</b></td><td>' . $row['login'] . '</td>
@@ -554,8 +560,79 @@ function mode_god() {
     <td><b>Name:</b></td><td>' . $row['name'] . '</td>
     <td><b>Lastname:</b></td><td>' . $row['lastname'] . '</td>
     <td><b>Rules:</b></td><td>' . $row['rules'] . '</td>
-   <td><img src=/news/images/edit.png><img src=/news/images/delete.gif></td></tr>';
+   <td>
+   <a href="/news/mode_god_edit/' . $row['login'] . '"><img src=/news/images/edit.png></a>
+   <a href="/news/mode_god_delete/' . $row['login'] . '"><img src=/news/images/delete.gif></a>
+   </td></tr>';
   }
-  $html_main_content .='</table>';
+  $html_main_content .= '</table>';
 
+}
+
+function mode_god_edit() {
+  global $html_main_content, $DBH;
+  if ($_SESSION['rules'] == 'admin') {
+    $STH = $DBH->prepare("Select * FROM user WHERE login=:login");
+    $data = array('login' => $_GET['id']);
+    $STH->execute($data);
+    $row = $STH->fetch(PDO::FETCH_ASSOC);
+    $html_main_content .= '<form method="post" enctype="multipart/form-data">
+<table><tr><td><b>Avatar</b></td><td>
+<img src="/news/images/';
+    if ($row['avatar'] == '') {
+      $html_main_content .= 'noimage.jpeg';
+    }
+    else {
+      $html_main_content .= $row['avatar'];
+    }
+    $html_main_content .= '"width="150px" height="150px"></td></tr>
+<tr><td><b>Login</b></td><td><input type="text" name="login" value="' . $row['login'] . '"></td></tr>
+<tr><td><b>Email</b></td><td><input type=text name="email" value="' . $row['email'] . '"></td></tr>
+<tr><td><b>Surname</b></td><td><input type=text name="surname" value="' . $row['surname'] . '"></td></tr>
+<tr><td><b>Name</b></td><td><input type=text name="name" value="' . $row['name'] . '"></td></tr>
+<tr><td><b>Lastname</b></td><td><input type=text name="lastname"value="' . $row['lastname'] . '"></td></tr>
+<tr><td><b>Date reg</b></td><td><input type=text name="lastname"value="' . $row['date_reg'] . '"></td></tr>
+<tr><td><b>Last login</b></td><td><input type=text name="lastname"value="' . $row['date_login'] . '"></td></tr>
+<tr><td><b>Rules</b></td><td>
+<select >
+<option ';
+    if ($row['rules'] == 'user') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="user">user</option><option ';
+    if ($row['rules'] == 'editor') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="editor">editor</option><option ';
+    if ($row['rules'] == 'baned') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="baned">baned</option><option ';
+    if ($row['rules'] == 'admin') {
+      $html_main_content .= 'selected ';
+    }
+    $html_main_content .= 'value="admin">admin</option>';
+    $html_main_content .= '  </select>
+ </td></tr>
+<tr><td><b>Password</b></td><td><input type="Password" name="password"></td></tr>
+<tr><td><b>RetryPassword</b></td><td><input type="Password" name="rpassword"></td></tr>
+<tr><td><b>EditAvatar</b></td><td><input type="file" name="file" size="30" /></td></tr>
+<input type="hidden" name="avatar" value="' . $row['avatar'] . '"></td></tr>
+<tr><td colspan="2"><b><input type="submit" value="ok" name="submit"></td></tr>
+</table>
+</form>';
+  }
+}
+
+function mode_god_delete() {
+  global $html_main_content, $DBH;
+  if ($_SESSION['rules'] == 'admin') {
+    $STH = $DBH->prepare("Delete FROM user WHERE login=:login;
+  Delete FROM comments WHERE author=:login;
+  Delete FROM news WHERE author=:login;");
+    $data = array('login' => $_GET['id']);
+    $STH->execute($data);
+    $html_main_content .= 'Profile & all comments ' . $_GET['id'] . 'will be delete <br>';
+    $html_main_content .= '<a href="/news/mode_god/">Back</a>';
+  }
 }
