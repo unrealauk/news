@@ -12,7 +12,6 @@ $err = '';
 $on_page = 2;
 $html_login_form = '';
 $html_main_content = '';
-$title = 'My site';
 $er = '';
 try {
   # MySQL через PDO_MYSQL

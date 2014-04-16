@@ -175,7 +175,7 @@ function user_info() {
     }
     $pos = mb_strrpos($_POST['email'], '@');
     if ($pos == 0 && $_POST['email'] != '') {
-      $er .= 'incorrect email addresses Example: mail@example.com<br>';
+      $er .= 'Incorrect email addresses Example: mail@example.com<br>';
     }
     $img = image_upload();
     if ($er == '') {
@@ -320,9 +320,10 @@ function add_news() {
         $html_main_content .= 'Write title & text <br>';
       }
     }
-    $html_main_content .= '<form method="post" name="add">
-      <b>Title: </b><input type="text" name="title"><br>
-      <b>Text: </b><br><textarea name="text" cols="40" rows="5"> </textarea><br>
+    $html_main_content .= 'Required field *<br>
+      <form method="post" name="add">
+      <b>Title: *</b><input type="text" name="title"><br>
+      <b>Text: *</b><br><textarea name="text" cols="40" rows="5"> </textarea><br>
       <input type="submit" value="ok" name="submit_add"></form>';
   }
   else {
@@ -366,9 +367,10 @@ function edit_news() {
     $STH->execute($data);
     $row = $STH->fetch(PDO::FETCH_ASSOC);
     if ($_SESSION['login'] == $row['author'] || $_SESSION['rules'] == 'admin') {
-      $html_main_content .= '<form method="post" name="news_edit">
-  <b>Title: </b><input type="text" name="title"  value="' . $row['title'] . '"><br>
-  <b>Text: </b><br><textarea cols="40" rows="5" name="text">' . $row['text'] . '</textarea><br>
+      $html_main_content .= 'Required field *<br>
+  <form method="post" name="news_edit">
+  <b>Title: *</b><input type="text" name="title"  value="' . $row['title'] . '"><br>
+  <b>Text: *</b><br><textarea cols="40" rows="5" name="text">' . $row['text'] . '</textarea><br>
   <input type="submit" name="submit_edit" value="ok"></form>';
     }
     else {
@@ -570,8 +572,56 @@ function mode_god() {
 }
 
 function mode_god_edit() {
-  global $html_main_content, $DBH;
+  global $html_main_content, $DBH,$er;
   if ($_SESSION['rules'] == 'admin') {
+    if (isset($_POST['submit'])) {
+
+      if (($_POST['password'] != '') && ($_POST['password'] != $_POST['rpassword'])) {
+        $er .= 'Passwords no match<br>';
+      }
+      $pos = mb_strrpos($_POST['email'], '@');
+      if ($pos == 0 && $_POST['email'] != '') {
+        $er .= 'Incorrect email addresses Example: mail@example.com<br>';
+      }
+      $img = image_upload();
+      if ($er == '') {
+        if ($img == '') {
+          $img = $_POST['avatar'];
+        }
+        $login = $_POST['login'];
+        $lastname = $_POST['lastname'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $sql = "UPDATE user SET";
+        if ($_POST['password'] !== '') {
+          $password = md5(trim($_POST['password']));
+          $sql .= " password=:password,";
+        }
+        if ($_POST['email'] !== '') {
+          $sql .= " email=:email,";
+        }
+        $sql .= " lastname=:lastname, name=:name, surname=:surname, avatar=:avatar, date_reg=:date_reg, date_login=:date_login, rules=:rules WHERE login=:login";
+        $STH = $DBH->prepare($sql);
+        if ($_POST['password'] !== '') {
+          $STH->bindParam(':password', $password);
+        }
+        if ($_POST['email'] !== '') {
+          $STH->bindParam(':email', $_POST['email']);
+        }
+        $STH->bindParam(':lastname', $lastname);
+        $STH->bindParam(':name', $name);
+        $STH->bindParam(':surname', $surname);
+        $STH->bindParam(':avatar', $img);
+        $STH->bindParam(':date_reg', $_POST['date_reg']);
+        $STH->bindParam(':date_login',  $_POST['date_login']);
+        $STH->bindParam(':rules',  $_POST['rules']);
+        $STH->bindParam(':login', $login);
+        $STH->execute();
+        $html_main_content .= 'You information upadte sucsesful<br>';
+      }
+      $html_main_content .= $er;
+      $_FILES['file']['error'] = '';
+    }
     $STH = $DBH->prepare("Select * FROM user WHERE login=:login");
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
@@ -586,15 +636,15 @@ function mode_god_edit() {
       $html_main_content .= $row['avatar'];
     }
     $html_main_content .= '"width="150px" height="150px"></td></tr>
-<tr><td><b>Login</b></td><td><input type="text" name="login" value="' . $row['login'] . '"></td></tr>
+<tr><td><b>Login</b></td><td><input type="text" name="login" readonly value="' . $row['login'] . '"></td></tr>
 <tr><td><b>Email</b></td><td><input type=text name="email" value="' . $row['email'] . '"></td></tr>
 <tr><td><b>Surname</b></td><td><input type=text name="surname" value="' . $row['surname'] . '"></td></tr>
 <tr><td><b>Name</b></td><td><input type=text name="name" value="' . $row['name'] . '"></td></tr>
 <tr><td><b>Lastname</b></td><td><input type=text name="lastname"value="' . $row['lastname'] . '"></td></tr>
-<tr><td><b>Date reg</b></td><td><input type=text name="lastname"value="' . $row['date_reg'] . '"></td></tr>
-<tr><td><b>Last login</b></td><td><input type=text name="lastname"value="' . $row['date_login'] . '"></td></tr>
+<tr><td><b>Date reg</b></td><td><input type=text name="date_reg"value="' . $row['date_reg'] . '"></td></tr>
+<tr><td><b>Last login</b></td><td><input type=text name="date_login" value="' . $row['date_login'] . '"></td></tr>
 <tr><td><b>Rules</b></td><td>
-<select >
+<select name="rules">
 <option ';
     if ($row['rules'] == 'user') {
       $html_main_content .= 'selected ';

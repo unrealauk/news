@@ -30,7 +30,7 @@ body {
 /* Header
 -----------------------------------------------------------------------------*/
 .header {
-    height: 50px;
+    height: 100px;
     background: #FFE680;
 }
 
@@ -80,5 +80,11 @@ body {
 h2.title{
     color: #1d13dd;
     text-align: left;
+
+}
+.language{
+    position: relative;
+    float: right;
+    right: 50px;
 
 }
