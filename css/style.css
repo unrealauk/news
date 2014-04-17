@@ -74,15 +74,18 @@ body {
     height: 20px;
     background: #BFF08E;
 }
-.error{
+
+.error {
     color: #dc1c38;
 }
-h2.title{
+
+h2.title {
     color: #1d13dd;
     text-align: left;
 
 }
-.language{
+
+.language {
     position: relative;
     float: right;
     right: 50px;
