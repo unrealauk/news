@@ -695,13 +695,13 @@ function mode_god_delete() {
 
 function edit_language() {
   global $html_main_content, $DBH;
-  $html_main_content .= '<h2>Пошук</h2>
+  $html_main_content .= '<h2>'.print_lg('Search', $_SESSION['lang']).'</h2>
   <form method="post">
   <input type="text" name="search">
   <input type="submit" value="ok" name="submit">
   </form>';
   if (isset($_POST['change'])) {
-    $STH= $DBH->prepare('Update lang SET text_en=:text_en, text_ua=:text_ua where id=:id');
+    $STH= $DBH->prepare('UPDATE lang SET text_en=:text_en, text_ua=:text_ua where id=:id');
     $STH->execute(array('text_en'=>$_POST['text_en'],'text_ua'=>$_POST['text_ua'],'id'=>$_POST['id']));
     $html_main_content .=print_lg('You information update sucsesful',$_SESSION['lang']).'</br>';
   }
@@ -712,7 +712,7 @@ function edit_language() {
     $STH->execute();
     while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
       $html_main_content .='<form  method="post">
-        <textarea readonly rows="5" cols="45" name="text_en">'.$row['text_en'].'</textarea>
+        <textarea rows="5" cols="45" name="text_en">'.$row['text_en'].'</textarea>
         <textarea rows="5" cols="45" name="text_ua">'.$row['text_ua'].'</textarea>
         <input type="hidden" name="id" value="'.$row['id'].'">
         <input type="submit" name="change" value="ok">
