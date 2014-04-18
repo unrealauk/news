@@ -9,7 +9,7 @@ $user = 'root';
 $pass = 'root';
 $err = '';
 // Количество новостей на странице
-$on_page = 2;
+$on_page = 5;
 $html_login_form = '';
 $html_main_content = '';
 $er = '';

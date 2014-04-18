@@ -17,7 +17,6 @@ if ($_GET['action'] == 'en') {
   header("Location: /news/");
   exit;
 }
-$language = array();
 function print_lg($text_en, $lg = 'en') {
   global $DBH;
   $STH = $DBH->prepare("SELECT * FROM lang WHERE text_en=:text_en");
@@ -25,11 +24,11 @@ function print_lg($text_en, $lg = 'en') {
   $STH->execute($data);
   if ($STH->rowCount() == 1) {
     $row = $STH->fetch(PDO::FETCH_ASSOC);
-    if ($lg == 'en') {
-      return $row['text_en'];
+    if ($lg == 'ua') {
+      return $row['text_ua'];
     }
     else {
-      return $row['text_ua'];
+      return $row['text_en'];
     }
   }
   else {
