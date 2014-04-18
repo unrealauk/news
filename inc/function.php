@@ -111,7 +111,7 @@ function main() {
     $encod = mb_detect_encoding($row['text']);
     if (mb_strlen($row['text'], $encod) >= 150) {
       $html_main_content .= '<b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . trimming_line($row['text'], 150) .
-        '<br><a href="/news/show_news/' . $row['id'] . '">' . print_lg('Read more', $_SESSION['lang']) . ' </a><br>';
+        '<br><a href="/news/show_news/' . $row['id'] . '">' . print_lg('Read more...', $_SESSION['lang']) . ' </a><br>';
     }
     else {
       $html_main_content .= '<b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . $row['text'] . '<br>';
@@ -258,6 +258,12 @@ function user_info() {
 function show_news() {
   global $DBH, $html_main_content, $title;
   if ($_POST['submit_show']) {
+    if ($_POST['title'] == '') {
+      $com_title = trimming_line($_POST['text'], 15);
+    }
+    else {
+      $com_title = $_POST['title'];
+    }
     if ($_SESSION['lang'] == "ua") {
       $STH = $DBH->prepare("INSERT INTO comments SET news_id=:id,title=:title,text=:text,author=:author,date=:date  ");
     }
@@ -265,7 +271,7 @@ function show_news() {
       $STH = $DBH->prepare("INSERT INTO comments_en SET news_id=:id,title=:title,text=:text,author=:author,date=:date  ");
     }
     $data = array(
-      'title' => $_POST['title'],
+      'title' => $com_title,
       'text' => $_POST['text'],
       'author' => $_SESSION['login'],
       'id' => $_GET['id'],
@@ -297,6 +303,28 @@ function show_news() {
   }
   $data = array('id' => $_GET['id']);
   $STH->execute($data);
+  $count_records = $STH->rowCount();
+  $on_page=10;
+  $num_pages = ceil($count_records / $on_page);
+  $current_page = isset($_GET['pages']) ? (int) $_GET['pages'] : 1;
+  if ($current_page < 1) {
+    $current_page = 1;
+  }
+  elseif ($current_page > $num_pages) {
+    $current_page = $num_pages;
+  }
+  $start_from = ($current_page - 1) * $on_page;
+  if ($start_from<0) $start_from=0;
+  if ($_SESSION['lang'] == "ua") {
+    $STH = $DBH->prepare("SELECT * FROM  comments WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
+  }
+  else {
+    $DBH->prepare("SELECT * FROM  comments_en WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
+  }
+  $STH->bindParam('id', $_GET['id']);
+  $STH->bindParam(':start_from', $start_from, PDO::PARAM_INT);
+  $STH->bindParam(':on_page', $on_page, PDO::PARAM_INT);
+  $STH->execute();
   if ($STH->rowCount() != 0) {
     $html_main_content .= '<br><b>' . print_lg('Comments', $_SESSION['lang']) . ' </b><hr>';
   }
@@ -306,6 +334,22 @@ function show_news() {
     <b>' . print_lg('Author:', $_SESSION['lang']) . ' </b><a href="/news/profileview/' . $row['author'] . '">' . $row['author'] . '</a><br>
     <b>' . print_lg('Date:', $_SESSION['lang']) . ' </b>' . $row['date'] . '<br><hr>';
   }
+  if ($num_pages != 1) {
+    $html_main_content .= '<p>';
+    for ($page = 1; $page <= $num_pages; $page++) {
+      if ($page == $current_page) {
+        $html_main_content .= '<strong>' . $page . '</strong> &nbsp;';
+      }
+      else {
+        $html_main_content .= '<a href="/news/show_news/' .$_GET['id'].'&pages='. $page . '">' . $page . '</a> &nbsp;';
+      }
+    }
+    $html_main_content .= '</p>';
+  }
+
+
+
+
   // If u author u have more privilege
   if ($_SESSION['login'] == $author || $_SESSION['rules'] == 'admin') {
     $html_main_content .= '<br><a href="/news/edit_news/' . $_GET['id'] . '">' . print_lg('Edit news:', $_SESSION['lang']) . ' </a><br>
@@ -563,7 +607,7 @@ function trimming_line($string, $length = 150) {
   if ($length && mb_strlen($string) > $length) {
     $str = mb_substr($string, 0, $length - 1);
     $pos = mb_strrpos($string, ' ');
-    return mb_substr($str, 0, $pos - 1) . ' ... ';
+    return mb_substr($str, 0, $pos - 1) ;
   }
   return $string;
 }
