@@ -63,6 +63,9 @@ function route($action) {
     case 'edit_language':
       edit_language();
       break;
+    case 'delete_comments':
+      delete_comments();
+      break;
     default:
       $html_main_content .= print_lg('Page not found', $_SESSION['lang']);
       break;
@@ -304,7 +307,7 @@ function show_news() {
   $data = array('id' => $_GET['id']);
   $STH->execute($data);
   $count_records = $STH->rowCount();
-  $on_page=10;
+  $on_page = 10;
   $num_pages = ceil($count_records / $on_page);
   $current_page = isset($_GET['pages']) ? (int) $_GET['pages'] : 1;
   if ($current_page < 1) {
@@ -314,7 +317,9 @@ function show_news() {
     $current_page = $num_pages;
   }
   $start_from = ($current_page - 1) * $on_page;
-  if ($start_from<0) $start_from=0;
+  if ($start_from < 0) {
+    $start_from = 0;
+  }
   if ($_SESSION['lang'] == "ua") {
     $STH = $DBH->prepare("SELECT * FROM  comments WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
   }
@@ -329,7 +334,11 @@ function show_news() {
     $html_main_content .= '<br><b>' . print_lg('Comments', $_SESSION['lang']) . ' </b><hr>';
   }
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
-    $html_main_content .= '<b>' . print_lg('Title:', $_SESSION['lang']) . ' </b>' . $row['title'] . '<br>
+    $html_main_content .= '<b>' . print_lg('Title:', $_SESSION['lang']) . ' </b>' . $row['title'];
+    if ($_SESSION['rules'] == 'admin') {
+      $html_main_content .= '<a href="/news/delete_comments/' . $row['id'] . '"><img src=/news/images/delete.gif></a>';
+    }
+    $html_main_content .= '<br>
     <b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . $row['text'] . '<br>
     <b>' . print_lg('Author:', $_SESSION['lang']) . ' </b><a href="/news/profileview/' . $row['author'] . '">' . $row['author'] . '</a><br>
     <b>' . print_lg('Date:', $_SESSION['lang']) . ' </b>' . $row['date'] . '<br><hr>';
@@ -341,15 +350,11 @@ function show_news() {
         $html_main_content .= '<strong>' . $page . '</strong> &nbsp;';
       }
       else {
-        $html_main_content .= '<a href="/news/show_news/' .$_GET['id'].'&pages='. $page . '">' . $page . '</a> &nbsp;';
+        $html_main_content .= '<a href="/news/show_news/' . $_GET['id'] . '&pages=' . $page . '">' . $page . '</a> &nbsp;';
       }
     }
     $html_main_content .= '</p>';
   }
-
-
-
-
   // If u author u have more privilege
   if ($_SESSION['login'] == $author || $_SESSION['rules'] == 'admin') {
     $html_main_content .= '<br><a href="/news/edit_news/' . $_GET['id'] . '">' . print_lg('Edit news:', $_SESSION['lang']) . ' </a><br>
@@ -607,7 +612,7 @@ function trimming_line($string, $length = 150) {
   if ($length && mb_strlen($string) > $length) {
     $str = mb_substr($string, 0, $length - 1);
     $pos = mb_strrpos($string, ' ');
-    return mb_substr($str, 0, $pos - 1) ;
+    return mb_substr($str, 0, $pos - 1);
   }
   return $string;
 }
@@ -660,6 +665,21 @@ function delete_user() {
       session_destroy();
       $html_main_content .= print_lg('Profile & all comments will be delete ', $_SESSION['lang']) . '<br>';
     }
+  }
+}
+
+function delete_comments() {
+  global $html_main_content, $DBH;
+  if ($_SESSION['rules'] == 'admin') {
+    if ($_SESSION['lang'] == "ua") {
+      $STH = $DBH->prepare("delete  FROM  comments WHERE  id =  :id  ");
+    }
+    else {
+      $STH = $DBH->prepare("delete  FROM  comments_en WHERE  id =  :id  ");
+    }
+    $data = array('id' => $_GET['id']);
+    $STH->execute($data);
+    $html_main_content .= print_lg('Comment delete ', $_SESSION['lang']) . '<br>';;
   }
 }
 
