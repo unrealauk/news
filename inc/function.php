@@ -99,7 +99,7 @@ function main() {
     $STH = $DBH->prepare("SELECT * from news LIMIT :start_from,:on_page");
   }
   else {
-    $DBH->prepare("SELECT * from news_en LIMIT :start_from,:on_page");
+    $STH = $DBH->prepare("SELECT * from news_en LIMIT :start_from,:on_page");
   }
   $STH->bindParam(':start_from', $start_from, PDO::PARAM_INT);
   $STH->bindParam(':on_page', $on_page, PDO::PARAM_INT);
@@ -319,9 +319,9 @@ function show_news() {
     $STH = $DBH->prepare("SELECT * FROM  comments WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
   }
   else {
-    $DBH->prepare("SELECT * FROM  comments_en WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
+    $STH = $DBH->prepare("SELECT * FROM  comments_en WHERE  news_id =  :id ORDER BY  id ASC LIMIT :start_from,:on_page");
   }
-  $STH->bindParam('id', $_GET['id']);
+  $STH->bindParam(':id', $_GET['id']);
   $STH->bindParam(':start_from', $start_from, PDO::PARAM_INT);
   $STH->bindParam(':on_page', $on_page, PDO::PARAM_INT);
   $STH->execute();
