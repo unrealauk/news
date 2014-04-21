@@ -81,6 +81,7 @@ function main() {
     session_unset();
     session_destroy();
   }
+
 //Pages
   if ($_SESSION['lang'] == "ua") {
     $STH = $DBH->query('SELECT * from news');
@@ -109,8 +110,7 @@ function main() {
   $STH->execute();
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
     $html_main_content .= '
-    <b>' . print_lg('Title:', $_SESSION['lang']) . ' </b><a href="/news/show_news/' . $row['id'] . '">' . $row['title'] . '</a>
-    <b>' . print_lg('Rating:', $_SESSION['lang']) . ' </b>' . $row['rating'] . '<br>';
+    <b>' . print_lg('Title:', $_SESSION['lang']) . ' </b><a href="/news/show_news/' . $row['id'] . '">' . $row['title'] . '</a><br>';
     $encod = mb_detect_encoding($row['text']);
     if (mb_strlen($row['text'], $encod) >= 150) {
       $html_main_content .= '<b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . trimming_line($row['text'], 150) .
@@ -139,7 +139,7 @@ function main() {
 
 //Image upload
 function image_upload() {
-  global $er;
+  global $er,$html_main_content;
   if (isset($_FILES['file']) && $_FILES['file']['error'] != 4) {
     $filename = $filepath = $filetype = '';
     if ($_FILES['file']['error'] != 1 && $_FILES['file']['error'] != 0) {
@@ -152,7 +152,7 @@ function image_upload() {
       if ($_FILES['file']['error'] == 1 || $filesize > 3145728) {
         $filesize = ($filesize != 0) ?
           sprintf('(%.2f Мб)', $filesize / 1024) : '';
-        die($er .= print_lg('Error: File size image more acceptable (3 MB)', $_SESSION['lang']) . '<br>');
+        $er .= print_lg('Error: File size image more acceptable (3 MB)', $_SESSION['lang']) . '<br>';
       }
       else {
         $filename = $_FILES['file']['name'];
@@ -260,6 +260,29 @@ function user_info() {
 //More information news
 function show_news() {
   global $DBH, $html_main_content, $title;
+  if ($_POST['add_vote'] && isset($_SESSION['login'])) {
+    $_SESSION['lang'] == '' ? $_SESSION['lang'] = 'en' : $_SESSION['lang'] = $_SESSION['lang'];
+    $STH = $DBH->prepare("INSERT INTO rating SET news_id=:news_id,author=:author,lang=:lang,value=:value  ");
+    $data = array(
+      'news_id' => $_GET['id'],
+      'author' => $_SESSION['login'],
+      'lang' => $_SESSION['lang'],
+      'value' => $_POST['vote']
+    );
+    $STH->execute($data);
+  }
+  if ($_POST['delete_vote'] && isset($_SESSION['login'])) {
+    $_SESSION['lang'] == '' ? $_SESSION['lang'] = 'en' : $_SESSION['lang'] = $_SESSION['lang'];
+    $STH = $DBH->prepare("Delete  from rating where news_id=:news_id and author=:author and lang=:lang  ");
+    $data = array(
+      'news_id' => $_GET['id'],
+      'author' => $_SESSION['login'],
+      'lang' => $_SESSION['lang']
+    );
+    $STH->execute($data);
+  }
+
+
   if ($_POST['submit_show']) {
     if ($_POST['title'] == '') {
       $com_title = trimming_line($_POST['text'], 15);
@@ -282,6 +305,10 @@ function show_news() {
     );
     $STH->execute($data);
   }
+  $STH = $DBH->prepare("Select avg(value) from rating where news_id=:news_id");
+  $STH->execute(array('news_id' => $_GET['id']));
+  $row = $STH->fetch(PDO::FETCH_NUM);
+  $votes =(int) $row['0'] ;
   if ($_SESSION['lang'] == "ua") {
     $STH = $DBH->prepare("SELECT * FROM news WHERE id=:id ");
   }
@@ -293,9 +320,37 @@ function show_news() {
   $row = $STH->fetch(PDO::FETCH_ASSOC);
   $author = $row['author'];
   $title = $row['title'];
-  $html_main_content .= '<h2 class="title">' . $row['title'] . '</h2>
-  <b>' . print_lg('Rating:', $_SESSION['lang']) . ' </b>' . $row['rating'] . '<br>
-  <b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . $row['text'] . '
+  $html_main_content .= '<h2 class="title">' . $row['title'] . '</h2>';
+  if ($votes == 0) {
+  $html_main_content .='<b>' . print_lg('Rating:', $_SESSION['lang']) . ' </b>'. print_lg('Any don`t vote:', $_SESSION['lang']).'<br>';
+  }
+  else {
+    $html_main_content .='<b>' . print_lg('Rating:', $_SESSION['lang']) . ' </b>' . $votes . '<br>';
+  }
+
+  $STT = $DBH->prepare("SELECT * FROM rating WHERE author=:author and news_id=:news_id and lang=:lang");
+  $STT->execute(array('news_id' => $_GET['id'], 'author' => $_SESSION['login'], 'lang' => $_SESSION['lang']));
+  $rat = $STT->fetch(PDO::FETCH_ASSOC);
+  if ($STT->rowCount() == 1) {
+    $html_main_content .= '<b>' . print_lg('You vote:', $_SESSION['lang']) . '</b> ' . $rat['value'] . '
+  <form name="delete_vote" method="post"><input type="submit" name="delete_vote" value=' . print_lg('Delete', $_SESSION['lang']) . '></form>
+  </br>';
+  }
+  else {
+    if (isset($_SESSION['login'])) {
+      $html_main_content .= "<form name='vote' method='post'><input type='radio' name='vote' value='1' >1&nbsp;
+  <input type='radio' name='vote' value='2'>2&nbsp;
+  <input type='radio' name='vote' value='3' checked>3&nbsp;
+  <input type='radio' name='vote' value='4'>4&nbsp;
+  <input type='radio' name='vote' value='5'>5&nbsp;
+  <input type='submit' name='add_vote' value='ok'>
+  </form> ";
+    }
+  }
+
+
+//
+  $html_main_content .= '<b>' . print_lg('Text:', $_SESSION['lang']) . ' </b>' . $row['text'] . '
   <br><b>' . print_lg('Author:', $_SESSION['lang']) . ' </b><a href="/news/profileview/' . $row['author'] . '">' . $row['author'] . '</a><br>
   <b>' . print_lg('Date:', $_SESSION['lang']) . ' </b>' . $row['date'] . '<br><hr>';
   if ($_SESSION['lang'] == "ua") {
