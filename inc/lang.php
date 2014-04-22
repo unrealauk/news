@@ -38,3 +38,5 @@ function print_lg($text_en, $lg = 'en') {
     return $text_en;
   }
 }
+
+$_SESSION['lang'] = empty($_SESSION['lang']) ? 'en' : $_SESSION['lang'];

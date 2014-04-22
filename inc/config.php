@@ -20,3 +20,9 @@ try {
   echo $e->getMessage();
 }
 $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+function show_err(){
+  global $html_main_content;
+  $html_main_content.=$_SESSION['err'];
+  $_SESSION['err']='';
+}
