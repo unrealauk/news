@@ -9,7 +9,7 @@ $user = 'root';
 $pass = 'root';
 $err = '';
 // Количество новостей на странице
-$on_page = 5;
+$on_page = 3;
 $html_login_form = '';
 $html_main_content = '';
 $er = '';
@@ -23,6 +23,6 @@ $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
 function show_err(){
   global $html_main_content;
-  $html_main_content.=$_SESSION['err'];
+  $html_main_content.='<div class=err>'.$_SESSION['err'].'</div>';
   $_SESSION['err']='';
 }

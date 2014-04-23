@@ -1,5 +1,5 @@
 <?php
-//Check access
+//Check access.
 function check_accses($rules, $action) {
   switch ($action) {
     case 'main':
@@ -14,7 +14,7 @@ function check_accses($rules, $action) {
   }
 }
 
-// Redirect Pages and run function
+// Redirect Pages and run function.
 function route($action) {
   global $html_main_content;
   show_err();
@@ -77,17 +77,17 @@ function route($action) {
 }
 
 
-//Show main page
+//Show main page.
 function main() {
   global $DBH, $html_main_content, $on_page;
-  //Check access
+  //Check access.
   if (check_accses($_SESSION['rules'], 'main')) {
     $html_main_content .= print_lg('You baned on this site pls contact
     admin@mail.ua Sorry but u can`t login', $_SESSION['lang']) . '<br>';
     session_unset();
     session_destroy();
   }
-  //Pages
+  //Pages.
   if ($_SESSION['lang'] == "ua") {
     $table = 'news';
   }
@@ -105,21 +105,23 @@ function main() {
     $current_page = $num_pages;
   }
   $start_from = ($current_page - 1) * $on_page;
+  if ($start_from < 0) {
+    $start_from = 0;
+  }
   $STH = $DBH->prepare("SELECT * from $table LIMIT :start_from,:on_page");
   $STH->bindParam(':start_from', $start_from, PDO::PARAM_INT);
   $STH->bindParam(':on_page', $on_page, PDO::PARAM_INT);
   $STH->execute();
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
-    //Rating
+    //Rating.
     $STT = $DBH->prepare("Select avg(value)
     from rating where news_id=:news_id");
     $STT->execute(array('news_id' => $row['id']));
     $rows = $STT->fetch(PDO::FETCH_NUM);
     $votes = (int) $rows['0'];
-    $html_main_content .= '<b>' .
-      print_lg('Title', $_SESSION['lang']) .
-      ': </b><a href="/news/show_news/' . $row['id'] . '">' .
-      $row['title'] . '</a>  ';
+    $html_main_content .= '<div class="post">
+    <h2 class="title"><a href="/news/show_news/' .
+      $row['id'] . '">' . $row['title'] . '</a></h2>';
     if ($votes == 0) {
       $html_main_content .= '<b>' .
         print_lg('Rating', $_SESSION['lang']) . ': </b>' .
@@ -129,26 +131,26 @@ function main() {
       $html_main_content .= '<b>' . print_lg('Rating', $_SESSION['lang']) .
         ': </b>' . $votes . '<br>';
     }
-    //Text trim
+    $html_main_content .= '  <p class="meta"><span class="date">' . $row['date'] .
+      '</span><span class="posted">' . print_lg('Author', $_SESSION['lang']) .
+      ': </b><a href="/news/profileview/' . $row['author'] . '">' .
+      $row['author'] . '</a></span></p><div style="clear: both;">&nbsp;</div>';
+    //Text trim.
     $encod = mb_detect_encoding($row['text']);
     if (mb_strlen($row['text'], $encod) >= 150) {
-      $html_main_content .= '<b>' . print_lg('Text', $_SESSION['lang']) .
-        ': </b>' . trimming_line($row['text'], 150) .
-        '<br><a href="/news/show_news/' . $row['id'] . '">' .
-        print_lg('Read more', $_SESSION['lang']) . '... </a><br>';
+      $html_main_content .= '<div class="entry">' .
+        trimming_line($row['text'], 150) . '
+        <p class="links"><a class="more" href="/news/show_news/' .
+        $row['id'] . '">' . print_lg('Read more', $_SESSION['lang']) .
+        '... </a></p></div></div>';
     }
     else {
-      $html_main_content .= '<b>' .
-        print_lg('Text', $_SESSION['lang']) . ': </b>' . $row['text'] . '<br>';
+      $html_main_content .= '<div class="entry">' . $row['text'] . '<br>
+      </div></div>';
     }
-    $html_main_content .= '<b>' .
-      print_lg('Author', $_SESSION['lang']) .
-      ': </b><a href="/news/profileview/' . $row['author'] . '">' .
-      $row['author'] . '</a><br><b>' .
-      print_lg('Date', $_SESSION['lang']) . ': </b>' .
-      $row['date'] . '<br><hr>';
+
   }
-  //Pages
+  //Pages.
   if ($num_pages != 1) {
     $html_main_content .= '<p>';
     for ($page = 1; $page <= $num_pages; $page++) {
@@ -162,21 +164,23 @@ function main() {
     }
     $html_main_content .= '</p>';
   }
+
+
 }
 
-//Image upload
+//Image upload.
 function image_upload() {
   global $html_main_content;
   if (isset($_FILES['file']) && $_FILES['file']['error'] != 4) {
     $filename = $filepath = $filetype = '';
-    //Image don`t upload
+    //Image don`t upload.
     if ($_FILES['file']['error'] != 1 && $_FILES['file']['error'] != 0) {
       $error = $_FILES['file']['error'];
       $_SESSION['err'] .= print_lg('Error: file not loaded. Error code', $_SESSION['lang'])
         . ':' . $error . '<br>';
     }
     else {
-      //Check imagesize
+      //Check imagesize.
       $filesize = $_FILES['file']['size'];
       if ($_FILES['file']['error'] == 1 || $filesize > 3145728) {
         $filesize = ($filesize != 0) ?
@@ -210,18 +214,18 @@ function image_upload() {
   }
 }
 
-//Show User Info
+//Show User Info.
 function user_info() {
   global $DBH, $html_main_content;
-  //Submit form
+  //Submit form.
   if (isset($_POST['submit'])) {
-    //Check pass
+    //Check pass.
     if (($_POST['password'] != '') &&
       ($_POST['password'] != $_POST['rpassword'])
     ) {
       $_SESSION['err'] .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
     }
-    //Check email
+    //Check email.
     $STH = $DBH->prepare("SELECT * FROM user WHERE email=:email ");
     $data = array('email' => $_POST['email']);
     $STH->execute($data);
@@ -229,13 +233,13 @@ function user_info() {
       $_SESSION['err'] .= print_lg('This email is already taken', $_SESSION['lang']) .
         "<br>";
     }
-    //Check email
+    //Check email.
     $pos = mb_strrpos($_POST['email'], '@');
     if ($pos == 0 && $_POST['email'] != '') {
       $_SESSION['err'] .= print_lg('Incorrect email addresses Example: mail@example.com',
           $_SESSION['lang']) . '<br>';
     }
-    //Image upload
+    //Image upload.
     $img = image_upload();
     if ($_SESSION['err'] == '') {
       if ($img == '') {
@@ -247,7 +251,7 @@ function user_info() {
       $name = $_POST['name'];
       $surname = $_POST['surname'];
       $sql = "UPDATE user SET";
-      //Check update pass or no
+      //Check update pass or no.
       if ($_POST['password'] !== '') {
         $password = md5(trim($_POST['password']));
         $sql .= " password=:password,";
@@ -273,18 +277,18 @@ function user_info() {
       $STH->bindParam(':avatar', $img);
       $STH->bindParam(':login', $login);
       $STH->execute();
-      $html_main_content .= print_lg('Your information update sucsesful',
+      $_SESSION['err']= print_lg('Your information update sucsesful',
           $_SESSION['lang']) . '<br>';
     }
     show_err();
     $_FILES['file']['error'] = '';
   }
-  //Show user info
+  //Show user info.
   $STH = $DBH->prepare("SELECT * FROM user WHERE login=:login");
   $data = array('login' => $_GET['id']);
   $STH->execute($data);
   $row = $STH->fetch(PDO::FETCH_ASSOC);
-  $html_main_content .= '<form method="post" enctype="multipart/form-data">
+  $html_main_content .= '<div class="post"><form method="post" enctype="multipart/form-data">
 <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) .
     ': </b></td><td><img src="/news/images/';
   if ($row['avatar'] == '') {
@@ -311,10 +315,10 @@ function user_info() {
     <input type="hidden" name="login" value="' .
     $row['login'] . '"><input type="hidden" name="avatar" value="' .
     $row['avatar'] . '"></td></tr><tr><td colspan="2"><b>
-    <input type="submit" value="ok" name="submit"></td></tr></table></form>';
+    <input type="submit" value="ok" name="submit"></td></tr></table></form></div>';
 }
 
-//More information news
+//More information news.
 function show_news() {
   global $DBH, $html_main_content, $title;
   //Vote
@@ -346,38 +350,44 @@ function show_news() {
     $STH->execute($data);
     $_SESSION['err'] .= print_lg('Your vote delete', $_SESSION['lang']);
   }
-  //Add comment
+  //Add comment.
   if ($_POST['submit_show']) {
-    if ($_POST['title'] == '') {
-      $com_title = trimming_line($_POST['text'], 15);
-    }
-    else {
-      $com_title = $_POST['title'];
-    }
-    if ($_SESSION['lang'] == "ua") {
-      $table = 'comments';
-    }
-    else {
-      $table = 'comments_en';
-    }
-    $STH = $DBH->prepare("INSERT INTO $table SET
+    if ($_POST['text'] != '') {
+
+      if ($_POST['title'] == '') {
+        $com_title = trimming_line($_POST['text'], 15);
+      }
+      else {
+        $com_title = $_POST['title'];
+      }
+      if ($_SESSION['lang'] == "ua") {
+        $table = 'comments';
+      }
+      else {
+        $table = 'comments_en';
+      }
+      $STH = $DBH->prepare("INSERT INTO $table SET
     news_id=:id,
     title=:title,
     text=:text,
     author=:author,
     date=:date  ");
-    $data = array(
-      'title' => $com_title,
-      'text' => $_POST['text'],
-      'author' => $_SESSION['login'],
-      'id' => $_GET['id'],
-      'date' => DATE('Y-m-d')
-    );
-    $STH->execute($data);
-    $_SESSION['err'] .= print_lg('Your comment added', $_SESSION['lang']);
+      $data = array(
+        'title' => $com_title,
+        'text' => $_POST['text'],
+        'author' => $_SESSION['login'],
+        'id' => $_GET['id'],
+        'date' => DATE('Y-m-d')
+      );
+      $STH->execute($data);
+      $_SESSION['err'] .= print_lg('Your comment added', $_SESSION['lang']);
+    }
+    else {
+      $_SESSION['err'] .= print_lg('Write text for comments', $_SESSION['lang']);
+    }
   }
   show_err();
-  //Rating
+  //Rating.
   $STH = $DBH->prepare("Select avg(value) from rating where news_id=:news_id");
   $STH->execute(array('news_id' => $_GET['id']));
   $row = $STH->fetch(PDO::FETCH_NUM);
@@ -394,7 +404,7 @@ function show_news() {
   $row = $STH->fetch(PDO::FETCH_ASSOC);
   $author = $row['author'];
   $title = $row['title'];
-  $html_main_content .= '<h2 class="title">' . $row['title'] . '</h2>';
+  $html_main_content .= '<div class="post"><h2 class="title">' . $row['title'] . '</h2>';
   if ($votes == 0) {
     $html_main_content .= '<b>' . print_lg('Rating', $_SESSION['lang']) .
       ': </b>' . print_lg('Any don`t vote', $_SESSION['lang']) . '<br>';
@@ -476,7 +486,7 @@ function show_news() {
   // If u author u have more privilege
   if ($_SESSION['login'] == $author || $_SESSION['rules'] == 'admin') {
     $html_main_content .= '<br><a href="/news/edit_news/' . $_GET['id'] . '">' .
-      print_lg('Edit news', $_SESSION['lang']) . ': </a><br>
+      print_lg('Edit news', $_SESSION['lang']) . ' </a><br>
     <a href="/news/delete_news/' . $_GET['id'] . '">' .
       print_lg('Delete news', $_SESSION['lang']) . ' </a><hr><br>';
   }
@@ -486,7 +496,7 @@ function show_news() {
       ': </b><form  method="post"><label for="title"><b>' .
       print_lg('Title', $_SESSION['lang']) . ': </b></label>
       <input  name="title" value="" type="text" size="32"/><br><b>' .
-      print_lg('Text', $_SESSION['lang']) . ': </b><br>
+      print_lg('Text', $_SESSION['lang']) . ': *</b><br>
       <textarea cols="50" rows="10" name="text"></textarea>
       <br><input name="submit_show" type="submit"  value="ок"></form>';
   }
@@ -504,7 +514,7 @@ function show_news() {
     $html_main_content .= '<b>' . print_lg('Title', $_SESSION['lang']) .
       ': </b>' . $row['title'];
     if ($_SESSION['rules'] == 'admin') {
-      $html_main_content .= '<a href="/news/delete_comments/' . $row['id'] . '">
+      $html_main_content .= '<a href="/news/delete_comments/' . $row['id'] . '&news_id=' . $_GET['id'] . '">
       <img src=/news/images/delete.gif></a>';
     }
     $html_main_content .= '<br><b>' .
@@ -514,6 +524,7 @@ function show_news() {
       '</a><br><b>' . print_lg('Date', $_SESSION['lang']) . ': </b>' .
       $row['date'] . '<br><hr>';
   }
+  $html_main_content .='</div>';
   //Pages
   if ($num_pages != 1) {
     $html_main_content .= '<p>';
@@ -551,58 +562,59 @@ function add_news() {
         title=:title,
         text=:text,
         author=:author,
-        rating='0',date=:date");
-      }
-      $data = array(
-        'title' => $_POST['title_en'],
-        'text' => $_POST['text_en'],
-        'author' => $_SESSION['login'],
-        'date' => DATE('Y-m-d')
-      );
-      $STH->execute($data);
-      $id_en = $DBH->lastInsertId();
-      $STH = $DBH->prepare("INSERT INTO news SET title=:title,
+        date=:date");
+        $data = array(
+          'title' => $_POST['title_en'],
+          'text' => $_POST['text_en'],
+          'author' => $_SESSION['login'],
+          'date' => DATE('Y-m-d')
+        );
+        $STH->execute($data);
+        $id_en = $DBH->lastInsertId();
+        $STH = $DBH->prepare("INSERT INTO news SET title=:title,
       text=:text,
       author=:author,
-      rating='0',
       date=:date");
-      $data = array(
-        'title' => $_POST['title_ua'],
-        'text' => $_POST['text_ua'],
-        'author' => $_SESSION['login'],
-        'date' => DATE('Y-m-d')
-      );
-      $STH->execute($data);
-      $id_ua = $DBH->lastInsertId();
-      //Redirect
-      if ($_SESSION['lang'] == 'ua') {
-        header("Location: /news/show_news/" . $id_ua . '');
+        $data = array(
+          'title' => $_POST['title_ua'],
+          'text' => $_POST['text_ua'],
+          'author' => $_SESSION['login'],
+          'date' => DATE('Y-m-d')
+        );
+        $STH->execute($data);
+        $id_ua = $DBH->lastInsertId();
+        //Redirect
+        if ($_SESSION['lang'] == 'ua') {
+          header("Location: /news/show_news/" . $id_ua . '');
+        }
+        else {
+          header("Location: /news/show_news/" . $id_en . '');
+        }
       }
       else {
-        header("Location: /news/show_news/" . $id_en . '');
+        $html_main_content .= '<div class="err">' . print_lg('Write title and text', $_SESSION['lang'])
+          . '</div>';
       }
     }
-    else {
-      $html_main_content .= print_lg('Write title and text', $_SESSION['lang'])
-        . '<br>';
-    }
-    $html_main_content .= print_lg('Required field *', $_SESSION['lang']) .
-      '<br><br>      <form method="post" name="add">
+
+    $html_main_content .= '<div class="post">
+    ' . print_lg('Required field *', $_SESSION['lang']) .
+      '<br><br><form method="post" name="add">
       ' . print_lg('English version', $_SESSION['lang']) . ': <br>
       <b>' . print_lg('Title', $_SESSION['lang']) . ': *</b>
       <input type="text" name="title_en"><br><b>' .
       print_lg('Text', $_SESSION['lang']) . ': *</b><br>
-      <textarea name="text_en" cols="40" rows="5"> </textarea><br>' .
+      <textarea name="text_en" cols="40" rows="5"></textarea><br>' .
       print_lg('Ukraine version ', $_SESSION['lang']) . ': <br><b>' .
       print_lg('Title', $_SESSION['lang']) . ': *</b>
       <input type="text" name="title_ua"><br><b>' .
       print_lg('Text', $_SESSION['lang']) . ': *</b><br>
-      <textarea name="text_ua" cols="40" rows="5"> </textarea><br>
-      <input type="submit" value="ok" name="submit_add"></form>';
+      <textarea name="text_ua" cols="40" rows="5"></textarea><br>
+      <input type="submit" value="ok" name="submit_add"></form></div>';
   }
   else {
-    $html_main_content .= print_lg('Failed u don`t have rules',
-        $_SESSION['lang']) . '<br>';
+    $html_main_content .= '<div class="err">' . print_lg('Failed u don`t have rules',
+        $_SESSION['lang']) . '</div>';
   }
 }
 
@@ -628,16 +640,17 @@ function delete_news() {
       $table = 'news_en';
       $table1 = 'comments_en';
     }
-    $STH = $DBH->prepare("Delete FROM $table WHERE id=:id;Delete FROM $table1
-    WHERE news_id=:id ");
+    $STH = $DBH->prepare("Delete FROM $table WHERE id=:id");
     $STH->execute($data);
-  //  $_SESSION['err'] = print_lg('News delete',$_SESSION['lang']);
+    $STH = $DBH->prepare(" Delete FROM $table1 WHERE news_id=:id ");
+    $STH->execute($data);
+    $_SESSION['err'] = print_lg('News deleted', $_SESSION['lang']) . '<br>';
     header("Location: /news/");
     exit;
   }
   else {
-    $html_main_content .= print_lg('Failed u don`t have rules',
-        $_SESSION['lang']) . "<br/>";
+    $html_main_content .='<div class="err">'. print_lg('Failed u don`t have rules',
+        $_SESSION['lang']) . "</div>";
   }
 }
 
@@ -662,12 +675,13 @@ function edit_news() {
         'date' => DATE('Y-m-d')
       );
       $STH->execute($data);
+      $_SESSION['err']=print_lg('Your information update sucsesful', $_SESSION['lang']);
       header("Location: /news/show_news/" . $_GET['id'] . '');
       exit;
     }
     else {
-      $html_main_content .= print_lg('Write title and text', $_SESSION['lang'])
-        . '<br>';
+      $_SESSION['err']=print_lg('Write title and text', $_SESSION['lang']);
+      header("Location: /news/edit_news/" . $_GET['id'] . '');
     }
   }
   else {
@@ -682,23 +696,24 @@ function edit_news() {
     $STH->execute($data);
     $row = $STH->fetch(PDO::FETCH_ASSOC);
     if ($_SESSION['login'] == $row['author'] || $_SESSION['rules'] == 'admin') {
-      $html_main_content .= print_lg('Required field *', $_SESSION['lang']) .
+      $html_main_content .='<div class="post">'. print_lg('Required field *', $_SESSION['lang']) .
         ' <br><form method="post" name="news_edit">
   <b>' . print_lg('Title', $_SESSION['lang']) . ': *</b>
   <input type="text" name="title"  value="' . $row['title'] . '"><br><b>' .
         print_lg('Text', $_SESSION['lang']) . ': *</b><br>
         <textarea cols="40" rows="5" name="text">' . $row['text'] . '</textarea>
-        <br><input type="submit" name="submit_edit" value="ok"></form>';
+        <br><input type="submit" name="submit_edit" value="ok"></form></div>';
     }
     else {
-      $html_main_content .= print_lg('Rules', $_SESSION['lang']) . ": <br/>";
+      $_SESSION['err']= print_lg('Rules', $_SESSION['lang']);
+      header("Location: /news/" . $_GET['id'] . '');
     }
   }
 }
 
 //Regitration user
 function registration() {
-  global $DBH, $html_main_content, $er;
+  global $DBH, $html_main_content;
   //Check submit registratiron
   if ($_POST['submit_registration']) {
     //Check log and email
@@ -708,29 +723,29 @@ function registration() {
     $data = array('login' => $_POST['login'], 'email' => $_POST['email']);
     $STH->execute($data);
     if ($STH->rowCount() >= 1) {
-      $er .= print_lg('This login or email is already taken',
+      $_SESSION['err'] .= print_lg('This login or email is already taken',
           $_SESSION['lang']) . "<br>";
     }
     if ((empty($_POST['login'])) && (empty($_POST['password'])) &&
       (empty($_POST['email']))
     ) {
-      $er .= print_lg('This login or email is already taken_required',
+      $_SESSION['err'] .= print_lg('This login or email is already taken_required',
           $_SESSION['lang']) . "<br>";
     }
     //Check pass
     if ($_POST['password'] != $_POST['rpassword']) {
-      $er .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
+      $_SESSION['err'] .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
     }
     //Check email
     $pos = mb_strrpos($_POST['email'], '@');
     if ($pos == 0) {
-      $er .= print_lg('Incorrect email addresses Example: mail@example.com',
+      $_SESSION['err'] .= print_lg('Incorrect email addresses Example: mail@example.com',
           $_SESSION['lang']) . '<br>';
     }
     //Upload image
     $img = image_upload();
     $sucs = 0;
-    if ($er == '') {
+    if ($_SESSION['err'] == '') {
       if (empty($img)) {
         $img = '';
       }
@@ -751,15 +766,14 @@ avatar,email,date_reg,date_login)VALUES ( :login, :name, :surname, :lastname,
         'date_login' => DATE('Y-m-d')
       );
       $STH->execute($data);
-      $html_main_content .= "You register successful<br>";
+      $_SESSION['err']= "You register successful";
       $sucs = 1;
     }
-    $html_main_content .= $er;
     $_FILES['file']['error'] = '';
   }
   //Show form
   if ($sucs == 0) {
-    $html_main_content .= print_lg('Required field *', $_SESSION['lang']) .
+    $html_main_content .='<div class="post">'. print_lg('Required field *', $_SESSION['lang']) .
       '<br><form method="post" enctype="multipart/form-data"><table><tr><td><b>'
       . print_lg('Login', $_SESSION['lang']) . ': *</b></td><td>
       <input type=text name="login"></td></tr><tr><td><b>' .
@@ -778,13 +792,15 @@ avatar,email,date_reg,date_login)VALUES ( :login, :name, :surname, :lastname,
       print_lg('Avatar', $_SESSION['lang']) . ': </b></td><td>
       <input type="file" name="file" size="30" /></td></tr><tr><td>
       <input type="submit" value="ok" name="submit_registration"></td>
-      </tr></table></form>';
+      </tr></table></form></div>';
   }
 }
 
 function login() {
-  global $DBH, $html_login_form, $err;
+  global $DBH, $html_login_form;
   //Check log and pass
+  $err='<div class="err">';
+  if ($_POST['submit_login']) {
   if ((!empty($_POST['login'])) && (!empty($_POST['password']))) {
     $login = $_POST['login'];
     $password = md5($_POST['password']);
@@ -814,6 +830,8 @@ function login() {
       $err .= print_lg('Incorect login or pass', $_SESSION['lang']) . '</br>';
     }
   }
+}
+
   //Print html form log in
   if (isset($_SESSION['login'])) {
     $html_login_form .= print_lg('You enter as', $_SESSION['lang']) . ' <b>' .
@@ -832,7 +850,7 @@ function login() {
   }
   else {
     //Print html form log out
-    $html_login_form .= $err;
+    $html_login_form .= $err.'</div>';
     $html_login_form .= '<form method="post" name="login">
    <b>' . print_lg('Name', $_SESSION['lang']) . ': </b>
    <input name="login" size="20" type="text"><b>' .
@@ -863,7 +881,7 @@ function profileview() {
   $data = array('login' => $_GET['id']);
   $STH->execute($data);
   $row = $STH->fetch(PDO::FETCH_ASSOC);
-  $html_main_content .= '<table><tr><td><b>' . print_lg('Avatar',
+  $html_main_content .= '<div class="post"><table><tr><td><b>' . print_lg('Avatar',
       $_SESSION['lang']) . ': </b></td><td><img src="/news/images/';
   if ($row['avatar'] == '') {
     $html_main_content .= 'noimage.jpeg';
@@ -894,6 +912,7 @@ function profileview() {
       <a href="/news/delete_user/' . $_GET['id'] . '">' .
       print_lg('Delete user', $_SESSION['lang']) . ' </a>';
   }
+  $html_main_content .='</div>';
 }
 
 //Delete user
@@ -901,20 +920,23 @@ function delete_user() {
   global $html_main_content, $DBH;
   //Check access
   if ($_SESSION['login'] == $_GET['id'] || $_SESSION['rules'] == 'admin') {
-    $STH = $DBH->prepare("Delete FROM user WHERE login=:login;
-  Delete FROM comments WHERE author=:login;
-  Delete FROM news WHERE author=:login;");
+    $STH = $DBH->prepare("Delete FROM user WHERE login=:login");
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
+    $STH = $DBH->prepare("Delete FROM comments WHERE author=:login");
+    $STH->execute($data);
+    $STH = $DBH->prepare("Delete FROM news WHERE author=:login");
+    $STH->execute($data);
     if ($_SESSION['rules'] == 'admin') {
-      $html_main_content .= print_lg('Delete user_sucs', $_SESSION['lang']) .
-        '<br>';
+      $_SESSION['errr'] .= print_lg('Delete user_sucs', $_SESSION['lang']);
+      header("Location: /news/");
     }
     else {
       session_unset();
       session_destroy();
-      $html_main_content .= print_lg('Profile & all comments will be delete',
-          $_SESSION['lang']) . '<br>';
+      $_SESSION['errr'] .= print_lg('Profile & all comments will be delete',
+      $_SESSION['lang']);
+      header("Location: /news/");
     }
   }
 }
@@ -933,8 +955,9 @@ function delete_comments() {
     $STH = $DBH->prepare("delete  FROM  $table WHERE  id =  :id  ");
     $data = array('id' => $_GET['id']);
     $STH->execute($data);
-    $html_main_content .= print_lg('Comment delete', $_SESSION['lang']) .
+    $_SESSION['err'] = print_lg('Comment delete', $_SESSION['lang']) .
       '<br>';
+    header("Location: /news/show_news/" . $_GET['news_id'] . "");
   }
 }
 
@@ -942,14 +965,14 @@ function delete_comments() {
 function user_show() {
   global $html_main_content, $DBH;
   $STH = $DBH->query("SELECT * FROM user ");
-  $html_main_content .= '<table>';
+  $html_main_content .= '<div class="post"><table>';
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
     $html_main_content .= '<tr>
     <td><b>' . print_lg('Login', $_SESSION['lang']) . ': </b></td><td>' .
       $row['login'] . '</td> <td><b>' . print_lg('Email', $_SESSION['lang']) .
       ': </b></td><td>' . $row['email'] . '</td><td><b>' .
       print_lg('Surname', $_SESSION['lang']) . ': </b></td><td>' .
-      $row['surname'] . '</td><td><b>' . print_lg('Name', $_SESSION['lang']) .
+      $row['surname'] . '</td></tr><tr><td><b>' . print_lg('Name', $_SESSION['lang']) .
       ': </b></td><td>' . $row['name'] . '</td><td><b>' .
       print_lg('Lastname', $_SESSION['lang']) . ': </b></td><td>' .
       $row['lastname'] . '</td><td><b>' . print_lg('Rules', $_SESSION['lang']) .
@@ -957,14 +980,14 @@ function user_show() {
       <a href="/news/user_edit/' . $row['login'] . '">
       <img src=/news/images/edit.png></a><a href="/news/user_delete/' .
       $row['login'] . '"><img src=/news/images/delete.gif></a>
-   </td></tr>';
+   </td></tr><tr height="20px"></tr>';
   }
-  $html_main_content .= '</table>';
+  $html_main_content .= '</table></div>';
 }
 
 //User edit
 function user_edit() {
-  global $html_main_content, $DBH, $er;
+  global $html_main_content, $DBH;
   //check access
   if ($_SESSION['rules'] == 'admin') {
     //Update info
@@ -972,15 +995,15 @@ function user_edit() {
       if (($_POST['password'] != '') &&
         ($_POST['password'] != $_POST['rpassword'])
       ) {
-        $er .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
+        $_SESSION['err'] .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
       }
       $pos = mb_strrpos($_POST['email'], '@');
       if ($pos == 0 && $_POST['email'] != '') {
-        $er .= print_lg('Incorrect email addresses Example: mail@example.com',
+        $_SESSION['err']  .= print_lg('Incorrect email addresses Example: mail@example.com',
             $_SESSION['lang']) . '<br>';
       }
       $img = image_upload();
-      if ($er == '') {
+      if ( $_SESSION['err']  == '') {
         if ($img == '') {
           $img = $_POST['avatar'];
         }
@@ -1015,18 +1038,18 @@ function user_edit() {
         $STH->bindParam(':rules', $_POST['rules']);
         $STH->bindParam(':login', $login);
         $STH->execute();
-        $html_main_content .= print_lg('Your information update sucsesful',
+        $_SESSION['err'] = print_lg('Your information update sucsesful',
             $_SESSION['lang']) . '<br>';
       }
-      $html_main_content .= $er;
       $_FILES['file']['error'] = '';
+      show_err();
     }
     // Show html.
     $STH = $DBH->prepare("Select * FROM user WHERE login = :login");
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
     $row = $STH->fetch(PDO::FETCH_ASSOC);
-    $html_main_content .= '<form method="post" enctype="multipart/form-data">
+    $html_main_content .= '<div class="post"><form method="post" enctype="multipart/form-data">
     <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) . '
     : </b></td><td><img src="/news/images/';
     if ($row['avatar'] == '') {
@@ -1079,7 +1102,7 @@ function user_edit() {
       <input type="file" name="file" size="30" /></td></tr>
       <input type="hidden" name="avatar" value="' . $row['avatar'] . '"></td>
       </tr><tr><td colspan="2"><b><input type="submit" value="ok" name="submit">
-      </td></tr></table></form>';
+      </td></tr></table></form></div>';
   }
 }
 
@@ -1092,10 +1115,8 @@ function user_delete() {
   Delete FROM news WHERE author=:login;");
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
-    $html_main_content .= print_lg('Delete user_sucs', $_SESSION['lang']) .
-      '<br>';
-    $html_main_content .= '<a href="/news/user_show/">' . print_lg('Back',
-        $_SESSION['lang']) . ' </a>';
+    $_SESSION['err'] .= print_lg('Delete user_sucs', $_SESSION['lang']);
+    header("Location: /news/user_show/");
   }
 }
 
@@ -1107,7 +1128,7 @@ function edit_language() {
     header("Location: /news/edit_language/");
   }
   //Search html
-  $html_main_content .= '<b>' . print_lg('Search', $_SESSION['lang']) .
+  $html_main_content .= '<div class="post"><b>' . print_lg('Search', $_SESSION['lang']) .
     '</b><br/>
   <form method="post"><input type="text" name="search" value="';
   $_POST['search'] ? $html_main_content .= $_POST['search'] :
@@ -1188,6 +1209,7 @@ function edit_language() {
       $html_main_content .= '</p>';
     }
   }
+  $html_main_content .='</div>';
 }
 
 //Delete all votes
@@ -1195,6 +1217,7 @@ function delete_vote() {
   global $html_main_content, $DBH;
   $STT = $DBH->prepare("DELETE  from rating where news_id=:news_id");
   $STT->execute(array('news_id' => $_GET['id']));
-  $html_main_content .= print_lg('All votes deleted', $_SESSION['lang']) .
+  $_SESSION['err'] = print_lg('All votes deleted', $_SESSION['lang']) .
     '</br>';
+  header("Location: /news/show_news/" . $_GET['id'] . "");
 }
