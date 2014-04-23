@@ -544,7 +544,7 @@ function add_news() {
   //Check access
   if ((check_accses($_SESSION['rules'], 'add')) && isset($_SESSION['login'])) {
     if (isset($_POST['submit_add'])) {
-      if ($_POST['title_eu'] !== '' && $_POST['text_eu'] !== ''
+      if ($_POST['title_en'] !== '' && $_POST['text_en'] !== ''
         && $_POST['title_ua'] !== '' && $_POST['text_ua'] !== ''
       ) {
         $STH = $DBH->prepare("INSERT INTO news_en SET
@@ -622,14 +622,16 @@ function delete_news() {
   if ($_SESSION['login'] == $row['author'] || $_SESSION['rules'] == 'admin') {
     if ($_SESSION['lang'] == "ua") {
       $table = 'news';
+      $table1 = 'comments';
     }
     else {
       $table = 'news_en';
+      $table1 = 'comments_en';
     }
-    $STH = $DBH->prepare("Delete FROM $table WHERE id=:id;Delete FROM $table
+    $STH = $DBH->prepare("Delete FROM $table WHERE id=:id;Delete FROM $table1
     WHERE news_id=:id ");
     $STH->execute($data);
-  //  $_SESSION['err'] .= print_lg('News delete',$_SESSION['lang']);
+  //  $_SESSION['err'] = print_lg('News delete',$_SESSION['lang']);
     header("Location: /news/");
     exit;
   }
