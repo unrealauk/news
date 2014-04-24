@@ -12,7 +12,8 @@
         type="text/css"/>
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'
         type='text/css'>
-</head>
+  <?php  include "{$_SERVER['DOCUMENT_ROOT']}/news/tmpl/myScript.php";?>
+  </head>
 <body>
 <div id="header" class="container">
   <div id="logo">
@@ -35,18 +36,19 @@
 <!--    </ul>-->
   </div>
 </div>
-<div id="splash-wrapper">
-  <div id="splash">
- <h2><?php echo print_lg('Slogon', $_SESSION['lang']); ?></h2>
- <p><?php echo print_lg('Nice words', $_SESSION['lang']); ?></p>
-  </div>
-</div>
+<!--<div id="splash-wrapper">-->
+<!--  <div id="splash">-->
+<!-- <h2>--><?php //echo print_lg('Slogon', $_SESSION['lang']); ?><!--</h2>-->
+<!-- <p>--><?php //echo print_lg('Nice words', $_SESSION['lang']); ?><!--</p>-->
+<!--  </div>-->
+<!--</div>-->
 <!-- end #header -->
 <div id="wrapper">
   <div id="wrapper2">
     <div id="wrapper-bgtop">
       <div id="page">
         <div id="content">
+          <div class="err" id="err"></div>
           <?php echo $html_main_content; ?>
 
           <!--  <div class="post">
