@@ -739,12 +739,6 @@ function registration() {
     if ($_POST['password'] != $_POST['rpassword']) {
       $_SESSION['err'] .= print_lg('Password: no match', $_SESSION['lang']) . '<br>';
     }
-    //Check email
-    $pos = mb_strrpos($_POST['email'], '@');
-    if ($pos == 0) {
-      $_SESSION['err'] .= print_lg('Incorrect email addresses Example: mail@example.com',
-          $_SESSION['lang']) . '<br>';
-    }
     //Upload image
     $img = image_upload();
     $sucs = 0;
@@ -779,13 +773,13 @@ avatar,email,date_reg,date_login)VALUES ( :login, :name, :surname, :lastname,
     $html_main_content .= '<div class="post">' . print_lg('Required field *', $_SESSION['lang']) .
       '<br><form method="post" enctype="multipart/form-data"><table><tr><td><b>'
       . print_lg('Login', $_SESSION['lang']) . ': *</b></td><td>
-      <input type=text name="login" id="login"></td><td id="login_error" class="err"></td></tr><tr><td><b>' .
+      <input type=text name="login" id="login"></td><td id="login_error" class="err" width="130"></td></tr><tr><td><b>' .
       print_lg('Email', $_SESSION['lang']) . ': *</b></td><td>
-      <input type=text name="email" id="email"></td><td id="email_error" class="err"></td></tr><tr><td><b>' .
+      <input type=text name="email" id="email"></td><td id="email_error" class="err" width="130"></td></tr><tr><td><b>' .
       print_lg('Password', $_SESSION['lang']) . ': *</b></td><td>
-      <input type="Password" name="password" id="password"></td><td id="password_error" class="err"></td></tr><tr><td><b>' .
+      <input type="Password" name="password" id="password"></td><td id="password_error" class="err" width="130"></td></tr><tr><td><b>' .
       print_lg('Retry password', $_SESSION['lang']) . ': *</b></td><td>
-      <input type="Password" name="rpassword" id="rpassword"></td><td id="rpassword_error" class="err"></td></tr><tr><td><b>' .
+      <input type="Password" name="rpassword" id="rpassword"></td><td id="rpassword_error" class="err" width="130"></td></tr><tr><td><b>' .
       print_lg('Surname', $_SESSION['lang']) . ': </b></td><td>
       <input type=text name="surname"></td></tr><tr><td><b>' .
       print_lg('Name', $_SESSION['lang']) . ': </b></td><td>

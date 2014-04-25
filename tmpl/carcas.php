@@ -12,6 +12,7 @@
         type="text/css"/>
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'
         type='text/css'>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
   <?php  include "{$_SERVER['DOCUMENT_ROOT']}/news/tmpl/myScript.php";?>
   </head>
 <body>
