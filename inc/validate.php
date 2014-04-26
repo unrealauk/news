@@ -7,6 +7,7 @@
  */
 require_once "config.php";
 require_once "lang.php";
+if (!empty($_POST['login'])){
   $STH = $DBH->prepare("SELECT * 	FROM user WHERE login=:login ");
   $data = array('login' => $_POST['login']);
   $STH->execute($data);
@@ -16,7 +17,8 @@ require_once "lang.php";
   else {
     echo '';
   }
-
+}
+if (!empty($_POST['email'])){
 $STH = $DBH->prepare("SELECT * 	FROM user WHERE email=:email ");
 $data = array('email' => $_POST['email']);
 $STH->execute($data);
@@ -26,3 +28,4 @@ $STH->execute($data);
   else {
     echo '';
   }
+}

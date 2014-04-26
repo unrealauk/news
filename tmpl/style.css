@@ -431,3 +431,9 @@ a:hover {
     font-style: italic;
 
 }
+.lang{
+    width: 255px;
+    color: black;
+    float: left;
+
+}
