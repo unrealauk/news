@@ -16,16 +16,18 @@ function check_accses($rules, $action) {
 
 // Redirect Pages and run function.
 function route($action) {
-  global $html_main_content;
+  global $html_main_content,$title;
   show_err();
   switch ($action) {
     case '':
       main();
       break;
     case 'user_show':
+      $title=print_lg('Show all users', $_SESSION['lang']);
       user_show();
       break;
     case 'user_info':
+      $title=print_lg('User info', $_SESSION['lang']);
       user_info();
       break;
     case 'show_news':
@@ -35,21 +37,25 @@ function route($action) {
       logout();
       break;
     case 'add_news':
+      $title=print_lg('Add news', $_SESSION['lang']);
       add_news();
       break;
     case 'registration':
+      $title=print_lg('Registration', $_SESSION['lang']);
       registration();
       break;
     case 'delete_news':
       delete_news();
       break;
     case 'edit_news':
+      $title=print_lg('Edit news', $_SESSION['lang']);
       edit_news();
       break;
     case 'pages':
       main();
       break;
     case 'profileview':
+      $title=print_lg('You information', $_SESSION['lang']);
       profileview();
       break;
     case 'delete_user':
@@ -59,9 +65,11 @@ function route($action) {
       user_delete();
       break;
     case 'user_edit':
+      $title=print_lg('Edit user', $_SESSION['lang']);
       user_edit();
       break;
     case 'edit_language':
+      $title=print_lg('Edit language', $_SESSION['lang']);
       edit_language();
       break;
     case 'delete_comments':
@@ -214,7 +222,7 @@ function image_upload() {
 
 //Show User Info.
 function user_info() {
-  global $DBH, $html_main_content;
+  global $DBH, $html_main_content,$title;
   //Submit form.
   if (isset($_POST['submit'])) {
     //Image upload.
@@ -266,7 +274,7 @@ function user_info() {
   $data = array('login' => $_GET['id']);
   $STH->execute($data);
   $row = $STH->fetch(PDO::FETCH_ASSOC);
-  $html_main_content .= '<div class="post"><form method="post" enctype="multipart/form-data">
+  $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><form method="post" enctype="multipart/form-data">
 <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) .
     ': </b></td><td><img src="/news/images/';
   if ($row['avatar'] == '') {
@@ -530,7 +538,7 @@ function logout() {
 
 //Add news.
 function add_news() {
-  global $DBH, $html_main_content;
+  global $DBH, $html_main_content,$title;
   //Check access.
   if ((check_accses($_SESSION['rules'], 'add')) && isset($_SESSION['login'])) {
     if (isset($_POST['submit_add'])) {
@@ -568,7 +576,7 @@ function add_news() {
         }
       }
     $html_main_content .= '<div class="err" id="news_error"></div><div class="post">
-    ' . print_lg('Required field *', $_SESSION['lang']) .
+    <h2 class="title">'.$title.'</h2>' . print_lg('Required field *', $_SESSION['lang']) .
       '<br><br><form method="post" name="add">
       ' . print_lg('English version', $_SESSION['lang']) . ': <br>
       <b>' . print_lg('Title', $_SESSION['lang']) . ': *</b><br>
@@ -626,7 +634,7 @@ function delete_news() {
 
 //Edit news
 function edit_news() {
-  global $DBH, $html_main_content;
+  global $DBH, $html_main_content,$title;
   //Submit add
   if (isset($_POST['submit_edit'])) {
     if ($_POST['title'] != '' && $_POST['text'] != '') {
@@ -666,7 +674,7 @@ function edit_news() {
     $STH->execute($data);
     $row = $STH->fetch(PDO::FETCH_ASSOC);
     if ($_SESSION['login'] == $row['author'] || $_SESSION['rules'] == 'admin') {
-      $html_main_content .= '<div class="post">' . print_lg('Required field *', $_SESSION['lang']) .
+      $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2>' . print_lg('Required field *', $_SESSION['lang']) .
         ' <br><form method="post" name="news_edit">
   <b>' . print_lg('Title', $_SESSION['lang']) . ': *</b>
   <input type="text" name="title"  value="' . $row['title'] . '"><br><b>' .
@@ -683,7 +691,7 @@ function edit_news() {
 
 //Regitration user
 function registration() {
-  global $DBH, $html_main_content;
+  global $DBH, $html_main_content,$title;
   //Check submit registratiron
   if ($_POST['submit_registration']) {
     //Upload image
@@ -718,7 +726,7 @@ avatar,email,date_reg,date_login)VALUES ( :login, :name, :surname, :lastname,
   }
   //Show form
   if ($sucs == 0) {
-    $html_main_content .= '<div class="post">' . print_lg('Required field *', $_SESSION['lang']) .
+    $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2>' . print_lg('Required field *', $_SESSION['lang']) .
       '<br><form method="post" enctype="multipart/form-data"><table><tr><td><b>'
       . print_lg('Login', $_SESSION['lang']) . ': *</b></td><td>
       <input type=text name="login" id="login"></td><td id="login_error" class="err" width="130"></td></tr><tr><td><b>' .
@@ -810,12 +818,12 @@ function trimming_line($string, $length = 150) {
 
 //Profile detail
 function profileview() {
-  global $html_main_content, $DBH;
+  global $html_main_content, $DBH,$title;
   $STH = $DBH->prepare("SELECT * FROM user WHERE login=:login");
   $data = array('login' => $_GET['id']);
   $STH->execute($data);
   $row = $STH->fetch(PDO::FETCH_ASSOC);
-  $html_main_content .= '<div class="post"><table><tr><td><b>' . print_lg('Avatar',
+  $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><table><tr><td><b>' . print_lg('Avatar',
       $_SESSION['lang']) . ': </b></td><td><img src="/news/images/';
   if ($row['avatar'] == '') {
     $html_main_content .= 'noimage.jpeg';
@@ -897,9 +905,9 @@ function delete_comments() {
 
 //Show all users
 function user_show() {
-  global $html_main_content, $DBH;
+  global $html_main_content, $DBH,$title;
   $STH = $DBH->query("SELECT * FROM user ");
-  $html_main_content .= '<div class="post"><table>';
+  $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><table>';
   while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
     $html_main_content .= '<tr>
     <td><b>' . print_lg('Login', $_SESSION['lang']) . ': </b></td><td>' .
@@ -921,7 +929,7 @@ function user_show() {
 
 //User edit
 function user_edit() {
-  global $html_main_content, $DBH;
+  global $html_main_content, $DBH,$title;
   //check access
   if ($_SESSION['rules'] == 'admin') {
     //Update info
@@ -973,7 +981,7 @@ function user_edit() {
     $data = array('login' => $_GET['id']);
     $STH->execute($data);
     $row = $STH->fetch(PDO::FETCH_ASSOC);
-    $html_main_content .= '<div class="post"><form method="post" enctype="multipart/form-data">
+    $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><form method="post" enctype="multipart/form-data">
     <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) . '
     : </b></td><td><img src="/news/images/';
     if ($row['avatar'] == '') {
@@ -1049,13 +1057,13 @@ function user_delete() {
 
 //Edit lang
 function edit_language() {
-  global $html_main_content, $DBH, $on_page;
+  global $html_main_content, $DBH, $on_page,$title;
   if ($_GET['id'] == 'clear') {
     unset($_SESSION['search']);
     header("Location: /news/edit_language/");
   }
   //Search html
-  $html_main_content .= '<div class="post"><b>' . print_lg('Search', $_SESSION['lang']) .
+  $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><b>' . print_lg('Search', $_SESSION['lang']) .
     '</b><br/>
   <form method="post"><input type="text" name="search" value="';
   $_POST['search'] ? $html_main_content .= $_POST['search'] :

@@ -2,6 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+  <title><?php echo print_lg('News site', $_SESSION['lang']).' '.$title ?></title>
   <meta name="keywords" content=""/>
   <meta name="description" content=""/>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -12,7 +13,8 @@
         type="text/css"/>
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'
         type='text/css'>
-  <?php  include "{$_SERVER['DOCUMENT_ROOT']}/news/tmpl/myScript.php";?>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+  <script type="text/javascript" src="http://localhost/news/tmpl/myScript.js"></script>
   </head>
 <body>
 <div id="header" class="container">
