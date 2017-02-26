@@ -24,12 +24,8 @@ function print_lg($text_en, $lg = 'en') {
   $STH->execute($data);
   if ($STH->rowCount() == 1) {
     $row = $STH->fetch(PDO::FETCH_ASSOC);
-    if ($lg == 'ua') {
-      return $row['text_ua'];
-    }
-    else {
-      return $row['text_en'];
-    }
+    return $row['text_'. $lg];
+
   }
   else {
     $STH = $DBH->prepare("INSERT INTO lang SET text_en=:text_en");

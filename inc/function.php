@@ -201,7 +201,7 @@ function image_upload() {
       }
     }
     if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-      $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/news/images/';
+      $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
       $uploadfile = $uploaddir . basename($_FILES['file']['name']);
       $imageinfo = getimagesize($_FILES['file']['tmp_name']);
       if ($imageinfo['mime'] != 'image/gif' &&
@@ -276,7 +276,7 @@ function user_info() {
   $row = $STH->fetch(PDO::FETCH_ASSOC);
   $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><form method="post" enctype="multipart/form-data">
 <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) .
-    ': </b></td><td><img src="/news/images/';
+    ': </b></td><td><img src="/images/';
   if ($row['avatar'] == '') {
     $html_main_content .= 'noimage.jpeg';
   }
@@ -297,7 +297,7 @@ function user_info() {
     <td id="password_error" class="err" width="130"></td></tr><tr>
     <td><b>' . print_lg('Retry password', $_SESSION['lang']) . ': </b>
     </td><td><input type="Password" name="rpassword" id="rpassword"></td></td><td id="rpassword_error" class="err" width="130"></td></tr><tr><td><b>' .
-    print_lg('Email', $_SESSION['lang']) . ': </b></td><td>
+    print_lg('Avatar', $_SESSION['lang']) . ': </b></td><td>
     <input type="file" name="file" size="26" /></td></tr>
     <input type="hidden" name="login" value="' .
     $row['login'] . '"><input type="hidden" name="avatar" value="' .
@@ -502,7 +502,7 @@ function show_news() {
     if ($_SESSION['rules'] == 'admin') {
       $html_main_content .= '<a href="/news/delete_comments/' . $row['id'] .
         '&news_id=' . $_GET['id'] . '" onclick="return confirmDelete();">
-      <img src=/news/images/delete.gif></a>';
+      <img src=/images/delete.gif></a>';
     }
     $html_main_content .= '<br><b>' .
       print_lg('Text', $_SESSION['lang']) . ': </b>' . $row['text'] .
@@ -824,7 +824,7 @@ function profileview() {
   $STH->execute($data);
   $row = $STH->fetch(PDO::FETCH_ASSOC);
   $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><table><tr><td><b>' . print_lg('Avatar',
-      $_SESSION['lang']) . ': </b></td><td><img src="/news/images/';
+      $_SESSION['lang']) . ': </b></td><td><img src="/images/';
   if ($row['avatar'] == '') {
     $html_main_content .= 'noimage.jpeg';
   }
@@ -920,8 +920,8 @@ function user_show() {
       $row['lastname'] . '</td><td><b>' . print_lg('Rules', $_SESSION['lang']) .
       ': </b></td><td>' . $row['rules'] . '</td><td>
       <a href="/news/user_edit/' . $row['login'] . '">
-      <img src=/news/images/edit.png></a><a href="/news/user_delete/' .
-      $row['login'] . '" onclick="return confirmDelete();"><img src=/news/images/delete.gif></a>
+      <img src=/images/edit.png></a><a href="/news/user_delete/' .
+      $row['login'] . '" onclick="return confirmDelete();"><img src=/images/delete.gif></a>
    </td></tr><tr height="20px"></tr>';
   }
   $html_main_content .= '</table>&nbsp;</div>';
@@ -983,7 +983,7 @@ function user_edit() {
     $row = $STH->fetch(PDO::FETCH_ASSOC);
     $html_main_content .= '<div class="post"><h2 class="title">'.$title.'</h2><form method="post" enctype="multipart/form-data">
     <table><tr><td><b>' . print_lg('Avatar', $_SESSION['lang']) . '
-    : </b></td><td><img src="/news/images/';
+    : </b></td><td><img src="/images/';
     if ($row['avatar'] == '') {
       $html_main_content .= 'noimage.jpeg';
     }
@@ -1125,7 +1125,7 @@ function edit_language() {
         $row['id'] . '"><input type="submit" name="change" value="ok">
         <a href="/news/edit_language/delete&lg_id=' . $row['id'] .
         '" onclick="return confirmDelete();">
-        <img src=/news/images/delete.gif></a></form>';
+        <img src=/images/delete.gif></a></form>';
     }
     //Pages
     if ($num_pages != 1) {

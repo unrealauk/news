@@ -7,14 +7,14 @@
   <meta name="description" content=""/>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title><?php echo print_lg('News', $_SESSION['lang']); ?></title>
-  <link href="/news/tmpl/style.css" rel="stylesheet" type="text/css"
+  <link href="/tmpl/style.css" rel="stylesheet" type="text/css"
         media="screen"/>
   <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet"
         type="text/css"/>
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'
         type='text/css'>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
-  <script type="text/javascript" src="http://localhost/news/tmpl/myScript.js"></script>
+  <script type="text/javascript" src="/tmpl/myScript.js"></script>
   </head>
 <body>
 <div id="header" class="container">
@@ -27,8 +27,8 @@
 
     <ul>
       <li>
-    <a href="/news/en/"><img src="/news/images/ru.png"></a></li>
-      <li><a href="/news/ua/"><img src="/news/images/ua.png"></a></li></ul>
+    <a href="/news/en/"><img src="/images/ru.png"></a></li>
+      <li><a href="/news/ua/"><img src="/images/ua.png"></a></li></ul>
 <!--    <ul>-->
 <!--      <li class="current_page_item"><a href="#">Homepage</a></li>-->
 <!--      <li><a href="#">Blog</a></li>-->
